@@ -16,7 +16,8 @@ AI/ML, Generative AI and Forward Deployed Engineer portfolio, built like a produ
 index.html              page markup
 css/styles.css          all styles (light and dark themes via CSS variables)
 js/skills.js            skills data: [symbol, name, family, where used]
-js/app.js               ask box (BM25), skill filter, copy buttons, voice intro
+js/app.js               ask box (BM25), hero character, skill filter, copy buttons, voice, hours
+js/profile.js           your answers for salary, work authorization and start date
 assets/harish-yeluri.jpg  profile photo
 assets/favicon.svg      tab icon
 .nojekyll               tells GitHub Pages to serve files as-is

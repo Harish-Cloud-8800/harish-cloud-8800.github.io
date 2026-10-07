@@ -21,66 +21,190 @@
   <div class="wrap">
     <a class="crumb" href="#top"><span class="dot live" aria-hidden="true"></span>harish-yeluri <span class="hide-sm">/ prod</span></a>
     <nav class="tabs" aria-label="Sections">
-      <a href="#ask" data-sec="ask">Ask</a>
+      <a href="#hello" data-sec="hello">Hello</a>
+      <a href="#card" data-sec="card">Profile</a>
       <a href="#summary" data-sec="summary">Summary</a>
+      <a href="#ask" data-sec="ask">Ask</a>
       <a href="#metrics" data-sec="metrics">Metrics</a>
       <a href="#deployments" data-sec="deployments">Experience</a>
       <a href="#evals" data-sec="evals">Projects</a>
       <a href="#stack" data-sec="stack">Skills</a>
-      <a href="#card" data-sec="card">Profile</a>
       <a href="#hire" data-sec="hire">Contact</a>
     </nav>
+    <button type="button" class="voice" id="voiceToggle" aria-pressed="false" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+      <span>Voice off</span>
+    </button>
   </div>
 </header>
 
 <main id="top">
-  <div class="wrap">
-    <section class="hero" id="ask">
-      <div>
-        <span class="status"><span class="dot live" aria-hidden="true"></span><b>Available</b><span>Full-time · W2 · C2C · relocating anywhere in the US</span></span>
-        <h1>Harish Yeluri</h1>
-        <div class="roles" aria-label="Target roles">
-          <span class="chip acc">AI/ML Engineer</span><span class="chip acc">GenAI Engineer</span><span class="chip acc">Forward Deployed Engineer</span>
+  <section class="sh" id="hello" aria-label="Introduction">
+    <div class="sh-inner wrap">
+      <div class="sh-intro">
+        <span class="status"><span class="dot live" aria-hidden="true"></span><b>Open to work</b><span>W2 · C2C · US-wide</span></span>
+        <h1 class="sh-name">Harish Yeluri</h1>
+        <p class="sh-who">AI / ML Engineer · Generative AI Engineer · Forward Deployed Engineer</p>
+        <p class="sh-text">I build production AI systems, LLM applications, RAG pipelines, AI agents, and scalable machine-learning platforms.</p>
+        <div class="sh-ctas">
+          <a class="btn pri" id="workCta" href="#evals">View my work</a>
+          <a class="btn" href="#ask">Ask my resume</a>
+          <button class="btn" type="button" id="heroIntro" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg><span>Hear my intro</span></button>
         </div>
-        <p class="lede">I build <b>production AI that people actually use</b>: LangGraph agents, RAG that stops hallucinating, and LLM platforms that stay fast and cheap. 4+ years at DataRobot, Yellow.ai and Accenture.</p>
-        <div class="hero-meta">
-          <div><b>10K+</b><span>daily inferences</span></div>
-          <div><b>99.5%</b><span>uptime</span></div>
-          <div><b>−35%</b><span>inference cost</span></div>
-        </div>
-        <div class="btns">
-          <a class="btn pri" href="#hire">Hire me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn" href="https://www.linkedin.com/in/harish8800/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <button class="btn" type="button" id="introBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg><span>Hear my intro</span></button>
-        </div>
+        <p class="sh-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l14 7-6 1.6L10 18z" fill="currentColor" fill-opacity=".15"/></svg>
+          <span class="mouse-only">Move your cursor around.</span>
+          <span class="touch-only">Tap the character to say hi.</span>
+        </p>
       </div>
+      <div class="sh-figure"><svg id="dev" viewBox="0 0 420 440" role="img" aria-label="Illustration of Harish working at a laptop, who turns and waves when you move your cursor">
+          <defs>
+            <pattern id="stripes" width="11" height="11" patternUnits="userSpaceOnUse">
+              <rect width="11" height="11" fill="#6A3A40"/>
+              <rect x="4.5" width="1.6" height="11" fill="#EADCDF" opacity=".7"/>
+            </pattern>
+          </defs>
+          <!-- desk -->
+          <ellipse cx="210" cy="424" rx="190" ry="14" fill="var(--sh-desk)"/>
 
-      <div class="panel ask" aria-label="Ask about my experience">
-        <div class="ask-head">
-          <span class="t"><span class="dot" aria-hidden="true"></span>ask-harish</span>
-          <span class="label">retrieval over my resume · BM25 · runs in your browser</span>
-        </div>
-        <form class="ask-form" id="askForm">
-          <label for="askInput" class="label" style="position:absolute;left:-9999px">Ask a question</label>
-          <input id="askInput" type="text" autocomplete="off" placeholder="Ask anything about my experience…">
-          <button type="submit">Ask</button>
-        </form>
-        <div class="sugs" id="sugs"></div>
-        <div class="answer" id="answer" aria-live="polite">
-          <p class="q" id="aQ">What has Harish built with agents?</p>
-          <p class="a" id="aA">At DataRobot I built production agentic workflows with LangGraph and LangChain: agents that plan multi-step tasks, call tools and APIs, route between models, and keep state and memory with LangGraph state, Redis and vector databases.<button class="cite" type="button" data-go="dep-dr">1</button> I connected those agents to internal systems through REST APIs, Model Context Protocol (MCP) and Semantic Kernel, and built shared components so new workflows start from one architecture.<button class="cite" type="button" data-go="dep-dr">2</button> I also evaluated LangGraph, LangChain, CrewAI and AutoGen and led the adoption of LangGraph for production orchestration.<button class="cite" type="button" data-go="dep-dr">3</button></p>
-          <div class="trace" id="aTrace"><span>retrieved <b>3</b> chunks</span><span>index <b>48</b> chunks</span><span>model <b>none: extractive</b></span></div>
-          <div class="srcs" id="aSrcs"></div>
-        </div>
-        <p class="note">No LLM here, so it can't invent anything: every answer is quoted from my resume, with its source. If the resume doesn't cover a question, it says so.</p>
-      </div>
-    </section>
-  </div>
+          <!-- headset on neck (shown after greeting) -->
+          <!-- body -->
+          <path d="M96 420 C100 336 128 284 210 276 C292 284 320 336 324 420 Z" fill="url(#stripes)"/>
+          <path d="M182 274 L210 304 L194 266 Z" fill="#5A3036" stroke="#EADCDF" stroke-opacity=".5" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M238 274 L210 304 L226 266 Z" fill="#5A3036" stroke="#EADCDF" stroke-opacity=".5" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="210" cy="322" r="2.6" fill="#EADCDF" opacity=".8"/><circle cx="210" cy="348" r="2.6" fill="#EADCDF" opacity=".8"/>
+          <!-- neck -->
+          <rect x="191" y="232" width="38" height="50" rx="14" fill="#A56A48"/>
 
-  <section class="sec" id="summary" style="padding-bottom:0">
+          <g id="neckset" opacity="0">
+            <path d="M164 268 C170 300 250 300 256 268" fill="none" stroke="#23252C" stroke-width="7" stroke-linecap="round"/>
+            <rect x="148" y="252" width="20" height="30" rx="9" fill="#23252C" transform="rotate(-18 158 267)"/>
+            <rect x="252" y="252" width="20" height="30" rx="9" fill="#23252C" transform="rotate(18 262 267)"/>
+            <circle cx="158" cy="267" r="4" fill="var(--accent)"/>
+          </g>
+
+          <!-- typing arms -->
+          <g id="typing">
+            <path d="M128 340 C118 368 136 388 172 394" fill="none" stroke="url(#stripes)" stroke-width="30" stroke-linecap="round"/>
+            <path id="typeR" d="M292 340 C302 368 284 388 248 394" fill="none" stroke="url(#stripes)" stroke-width="30" stroke-linecap="round"/>
+          </g>
+
+          <!-- head -->
+          <g id="head">
+            <circle cx="159" cy="188" r="11" fill="#B97A56"/>
+            <circle cx="261" cy="188" r="11" fill="#B97A56"/>
+            <ellipse cx="210" cy="182" rx="52" ry="60" fill="#B97A56"/>
+            <path d="M162 196 C166 240 190 246 210 246 C230 246 254 240 258 196 C250 224 232 234 210 234 C188 234 170 224 162 196 Z" fill="#3A2A26" opacity=".28"/>
+            <path d="M156 176 C148 122 186 102 214 106 C250 108 274 132 264 178 C258 152 238 140 210 140 C184 140 166 152 156 176 Z" fill="#1C1817"/>
+            <g fill="#1C1817"><circle cx="162" cy="158" r="10"/><circle cx="166" cy="138" r="12"/><circle cx="180" cy="120" r="13"/><circle cx="199" cy="111" r="13"/><circle cx="219" cy="109" r="13"/><circle cx="238" cy="115" r="13"/><circle cx="252" cy="130" r="12"/><circle cx="259" cy="150" r="10"/></g>
+            <g id="brows">
+              <path d="M180 160 Q190 154 201 159" fill="none" stroke="#1C1817" stroke-width="4" stroke-linecap="round"/>
+              <path d="M219 159 Q230 154 240 160" fill="none" stroke="#1C1817" stroke-width="4" stroke-linecap="round"/>
+            </g>
+            <g id="eyes">
+              <ellipse cx="191" cy="178" rx="9" ry="7" fill="#FFFFFF"/>
+              <ellipse cx="229" cy="178" rx="9" ry="7" fill="#FFFFFF"/>
+              <g id="pupils">
+                <circle cx="191" cy="178" r="4.6" fill="#1B1414"/>
+                <circle cx="229" cy="178" r="4.6" fill="#1B1414"/>
+              </g>
+            </g>
+            <path d="M210 184 Q204 200 213 202" fill="none" stroke="#8C5638" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M192 208 C199 201 221 201 228 208 C222 212 215 210 210 211 C205 210 198 212 192 208 Z" fill="#1C1817"/>
+            <path id="mouthN" d="M199 216 Q210 221 221 216" fill="none" stroke="#5A2A26" stroke-width="3" stroke-linecap="round"/>
+            <path id="mouthS" d="M196 212 Q210 232 224 212 Z" fill="#5A2A26" opacity="0"/>
+            <g id="headset">
+              <path d="M152 182 C144 106 276 106 268 182" fill="none" stroke="#23252C" stroke-width="7" stroke-linecap="round"/>
+              <rect x="142" y="168" width="20" height="36" rx="9" fill="#23252C"/>
+              <rect x="258" y="168" width="20" height="36" rx="9" fill="#23252C"/>
+              <path d="M152 202 Q158 230 190 228" fill="none" stroke="#23252C" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="191" cy="228" r="4.5" fill="var(--accent)"/>
+            </g>
+          </g>
+
+          <!-- laptop (back of the lid faces us) -->
+          <rect x="116" y="300" width="188" height="114" rx="9" fill="var(--sh-lid)"/>
+          <rect x="116" y="300" width="188" height="6" rx="3" fill="#FFFFFF" opacity=".55"/>
+          <rect x="128" y="314" width="164" height="88" rx="9" fill="#8A3350"/>
+          <g font-family="Geist Mono, JetBrains Mono, ui-monospace, monospace" text-anchor="middle" fill="#FFFFFF">
+            <text x="210" y="334" font-size="12.5" font-weight="600">AI / ML</text>
+            <text x="210" y="353" font-size="12.5" font-weight="600">GEN AI</text>
+            <text x="210" y="372" font-size="10.5" font-weight="500">FORWARD DEPLOYED</text>
+            <text x="210" y="390" font-size="10.5" font-weight="500">ENGINEER</text>
+          </g>
+          <path d="M98 414 L322 414 L334 424 L86 424 Z" fill="var(--sh-lid-edge)"/>
+
+          <!-- waving / pointing arm -->
+          <g id="arm" opacity="0">
+            <path d="M296 304 L338 262" stroke="url(#stripes)" stroke-width="30" stroke-linecap="round"/>
+            <g id="forearm">
+              <path d="M338 262 L338 204" stroke="url(#stripes)" stroke-width="26" stroke-linecap="round"/>
+              <rect x="326" y="174" width="24" height="30" rx="11" fill="#B97A56"/>
+              <path d="M326 186 L318 180" stroke="#B97A56" stroke-width="8" stroke-linecap="round"/>
+              <path id="finger" d="M338 176 L338 156" stroke="#B97A56" stroke-width="7" stroke-linecap="round" opacity="0"/>
+            </g>
+          </g>
+        </svg></div>
+      <div class="sh-react"><p class="sh-bubble" id="bubble" aria-live="polite"></p></div>
+    </div>
+    <a class="sh-cue" id="cue" href="#card">See my profile<i></i></a>
+  </section>
+
+  <section class="sec" id="card">
     <div class="wrap">
       <div class="sec-head">
-        <h2><code>00</code>Professional summary</h2>
+        <h2><code>01</code>Model card</h2>
+        <p>The standard way to document a model, applied to me.</p>
+      </div>
+      <div class="card-grid">
+        <div class="idc lanyard" aria-label="Engineer ID badge">
+          <div class="strap"></div><div class="clip"></div>
+          <div class="badge" id="idBadge">
+            <div class="badge-top"><span class="mono-badge">HY</span><div><b>ENGINEER ID</b><span>AI / ML · since 2021</span></div></div>
+            <div class="badge-body">
+              <img src="assets/harish-yeluri.jpg" alt="Portrait of Harish Yeluri" width="120" height="140">
+              <h3>Harish Yeluri</h3>
+              <p class="role">AI/ML · GenAI · Forward Deployed</p>
+              <div class="badge-grid">
+                <div>Travel<b>100%</b></div>
+                <div>Uptime<b>99.5%</b></div>
+                <div>Base<b>USA</b></div>
+              </div>
+              <span class="status" style="font-size:10.5px"><span class="dot live" aria-hidden="true"></span><b>Open to work</b><span>Full-time · W2 · C2C</span></span>
+              <div class="barcode" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel mc">
+          <dl>
+            <dt>intended_use</dt><dd><div class="chips"><span class="chip acc">AI/ML Engineer</span><span class="chip acc">Generative AI Engineer</span><span class="chip acc">Forward Deployed Engineer</span></div></dd>
+            <dt>strengths</dt><dd>Agents and RAG in production · LLM platform reliability and cost · working directly with customers and stakeholders</dd>
+            <dt>training_data</dt><dd>4+ years across <b>startups</b> and <b>enterprise</b>: DataRobot (2024–now) and Yellow.ai (2023–24), both fast-growing AI startups, and Accenture (2021–23) · healthcare, banking, enterprise support</dd>
+            <dt>evaluation</dt><dd>10K+ inferences/day · 99.5% uptime · −35% cost · +40% retrieval · 8% → 2% hallucinations</dd>
+            <dt>serving_terms</dt><dd>Open to work · Full-time · W2 · C2C</dd>
+            <dt>deployment_region</dt><dd>Based in the USA (Overland Park, KS) · open to relocate anywhere in the US</dd>
+            <dt>travel</dt><dd>Open to 100% travel</dd>
+            <dt>availability_window</dt><dd>Monday to Friday · 9:00 AM to 5:00 PM Central Time <span class="hours-live" data-hours-status></span></dd>
+            <dt>certifications</dt><dd><ul>
+              <li>AWS Certified Machine Learning – Specialty</li>
+              <li>AWS Certified Solutions Architect – Associate</li>
+              <li>Microsoft Certified: Azure AI Engineer Associate</li>
+              <li>Generative AI with Large Language Models · DeepLearning.AI</li>
+              <li>LangChain for Large Language Models · DeepLearning.AI</li>
+              <li>Deep Learning Specialization · DeepLearning.AI</li>
+              <li>Machine Learning Specialization · Stanford University</li>
+            </ul></dd>
+            <dt>education</dt><dd>MS Computer Science, University of Central Missouri (Dec 2025) · B.Tech ECE, JNTU Kakinada (2022, CGPA 9.0/10)</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="summary" style="padding-bottom:8px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>02</code>Professional summary</h2>
         <p>The short version, for anyone reading in a hurry.</p>
       </div>
       <article class="panel readme">
@@ -107,10 +231,66 @@
     </div>
   </section>
 
+  <div class="wrap">
+    <section class="hero" id="ask">
+      <div>
+        <h2 class="ask-title">Ask my resume anything.</h2>
+        <div class="roles" aria-label="Target roles" style="display:none">
+          <span class="chip acc">AI/ML Engineer</span><span class="chip acc">GenAI Engineer</span><span class="chip acc">Forward Deployed Engineer</span>
+        </div>
+        <p class="lede">I build <b>production AI that people actually use</b>: LangGraph agents, RAG that stops hallucinating, and LLM platforms that stay fast and cheap. 4+ years at DataRobot, Yellow.ai and Accenture.</p>
+        <div class="hero-meta">
+          <div><b>10K+</b><span>daily inferences</span></div>
+          <div><b>99.5%</b><span>uptime</span></div>
+          <div><b>−35%</b><span>inference cost</span></div>
+        </div>
+        <div class="btns">
+          <a class="btn pri" href="#hire">Hire me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn" href="https://www.linkedin.com/in/harish8800/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <button class="btn" type="button" id="introBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg><span>Hear my intro</span></button>
+        </div>
+      </div>
+
+      <div class="panel ask" aria-label="Ask about my experience">
+        <div class="ask-head">
+          <span class="t"><span class="dot" aria-hidden="true"></span>ask-harish</span>
+          <span class="label">retrieval over my resume · BM25 · runs in your browser</span>
+        </div>
+        <form class="ask-form" id="askForm">
+          <label for="askInput" class="label" style="position:absolute;left:-9999px">Ask a question</label>
+          <input id="askInput" type="text" autocomplete="off" placeholder="Ask anything about my experience…">
+          <button type="button" id="askBtn">Ask</button>
+        </form>
+        <div class="sugs" id="sugs"></div>
+        <div class="answer" id="answer" aria-live="polite">
+          <p class="q" id="aQ">What has Harish built with agents?</p>
+          <p class="a" id="aA">At DataRobot I built production agentic workflows with LangGraph and LangChain: agents that plan multi-step tasks, call tools and APIs, route between models, and keep state and memory with LangGraph state, Redis and vector databases.<button class="cite" type="button" data-go="dep-dr">1</button> I connected those agents to internal systems through REST APIs, Model Context Protocol (MCP) and Semantic Kernel, and built shared components so new workflows start from one architecture.<button class="cite" type="button" data-go="dep-dr">2</button> I also evaluated LangGraph, LangChain, CrewAI and AutoGen and led the adoption of LangGraph for production orchestration.<button class="cite" type="button" data-go="dep-dr">3</button></p>
+          <div class="trace" id="aTrace"><span>retrieved <b>3</b> chunks</span><span>index <b>48</b> chunks</span><span>model <b>none: extractive</b></span></div>
+          <div class="srcs" id="aSrcs"></div>
+        </div>
+        <p class="note">Ask anything a recruiter would: skills, projects, results, salary, visa, relocation. Answers are quoted from my resume with sources. No LLM, so nothing is made up; if my resume doesn't cover it, it says so and points you to me.</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="sec" id="field" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>From customer problem to production</h2>
+        <p>What forward deployed teams hire for, from my own work.</p>
+      </div>
+      <div class="fde">
+        <article class="panel"><span class="label">Discover</span><h3>Turn vague goals into a buildable plan</h3><p>I sit with product and business stakeholders to find the process gaps worth automating, set success criteria, and demo each iteration so feedback lands early.</p></article>
+        <article class="panel"><span class="label">Integrate</span><h3>Wire AI into the systems people already use</h3><p>Custom adapters for 20+ third-party APIs with inconsistent formats, auth and rate limits, plus tool calling, MCP and Semantic Kernel integrations into internal systems.</p></article>
+        <article class="panel"><span class="label">Own it in production</span><h3>Stay on the hook after launch</h3><p>Escalation point for live AI issues: tracing latency spikes across Kubernetes and model serving, writing runbooks, and keeping a 10K-inference-a-day platform at 99.5% uptime.</p></article>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="metrics">
     <div class="wrap">
       <div class="sec-head">
-        <h2><code>01</code>Production metrics</h2>
+        <h2><code>03</code>Production metrics</h2>
         <p>Numbers from systems I built or owned. Each tile names where it came from.</p>
       </div>
       <div class="kpis">
@@ -129,7 +309,7 @@
   <section class="sec" id="deployments">
     <div class="wrap">
       <div class="sec-head">
-        <h2><code>02</code>Deployment log</h2>
+        <h2><code>04</code>Deployment log</h2>
         <p>My career, newest release first. Green lines are what each role shipped.</p>
       </div>
       <div class="deploys">
@@ -191,7 +371,7 @@
   <section class="sec" id="evals">
     <div class="wrap">
       <div class="sec-head">
-        <h2><code>03</code>Eval results</h2>
+        <h2><code>05</code>Eval results</h2>
         <p>Projects scored the way I'd score a model: the metric, where it started, where it ended.</p>
       </div>
       <div class="panel tbl-wrap">
@@ -216,7 +396,7 @@
   <section class="sec" id="stack">
     <div class="wrap">
       <div class="sec-head">
-        <h2><code>04</code>Dependencies</h2>
+        <h2><code>06</code>Dependencies</h2>
         <p>Every skill across my resumes. Ones marked <code style="color:var(--accent)">prod</code> have run in production with a result attached.</p>
       </div>
       <div class="stack-tools">
@@ -228,53 +408,17 @@
     </div>
   </section>
 
-  <section class="sec" id="card">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2><code>05</code>Model card</h2>
-        <p>The standard way to document a model, applied to me.</p>
-      </div>
-      <div class="card-grid">
-        <div class="panel idc">
-          <img src="assets/harish-yeluri.jpg" alt="Portrait of Harish Yeluri" width="260" height="260">
-          <div><h3>Harish Yeluri</h3></div>
-          <p class="sub">AI/ML Engineer · Overland Park, Kansas</p>
-          <span class="status" style="font-size:11px"><span class="dot live" aria-hidden="true"></span><b>Available</b><span>W2 · C2C · full-time</span></span>
-        </div>
-        <div class="panel mc">
-          <dl>
-            <dt>intended_use</dt><dd><div class="chips"><span class="chip acc">AI/ML Engineer</span><span class="chip acc">Generative AI Engineer</span><span class="chip acc">Forward Deployed Engineer</span></div></dd>
-            <dt>strengths</dt><dd>Agents and RAG in production · LLM platform reliability and cost · working directly with customers and stakeholders</dd>
-            <dt>training_data</dt><dd>4+ years: DataRobot (2024–now), Yellow.ai (2023–24), Accenture (2021–23) · healthcare, banking, enterprise support</dd>
-            <dt>evaluation</dt><dd>10K+ inferences/day · 99.5% uptime · −35% cost · +40% retrieval · 8% → 2% hallucinations</dd>
-            <dt>serving_terms</dt><dd>Full-time · W2 · C2C</dd>
-            <dt>deployment_region</dt><dd>Based in Overland Park, KS · open to relocate anywhere in the US</dd>
-            <dt>certifications</dt><dd><ul>
-              <li>AWS Certified Machine Learning – Specialty</li>
-              <li>AWS Certified Solutions Architect – Associate</li>
-              <li>Microsoft Certified: Azure AI Engineer Associate</li>
-              <li>Generative AI with Large Language Models · DeepLearning.AI</li>
-              <li>LangChain for Large Language Models · DeepLearning.AI</li>
-              <li>Deep Learning Specialization · DeepLearning.AI</li>
-              <li>Machine Learning Specialization · Stanford University</li>
-            </ul></dd>
-            <dt>education</dt><dd>MS Computer Science, University of Central Missouri (Dec 2025) · B.Tech ECE, JNTU Kakinada (2022, CGPA 9.0/10)</dd>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="sec" id="hire">
     <div class="wrap">
       <div class="hire">
         <div class="panel hire-l">
-          <span class="label"><code>06</code> Contact</span>
+          <span class="label"><code>07</code> Contact</span>
           <h2>Ready to deploy.</h2>
           <p>Looking for AI/ML, Generative AI and Forward Deployed Engineer roles. Full-time, W2 or C2C, and I'll relocate anywhere in the US.</p>
           <div class="contact-rows">
             <div><span>Email</span><b id="email">harishyeluri8800@gmail.com</b><button class="cbtn" type="button" data-copy="email">Copy</button></div>
             <div><span>Phone</span><b id="phone">+1 (913) 553-0359</b><button class="cbtn" type="button" data-copy="phone">Copy</button></div>
+            <div class="hours-row"><span>Hours</span><b>Mon to Fri · 9:00 AM to 5:00 PM CT<small class="hours-local" data-hours-local></small></b><span class="hours-live" data-hours-status></span></div>
             <div><span>LinkedIn</span><a href="https://www.linkedin.com/in/harish8800/" target="_blank" rel="noopener">in/harish8800 ↗</a></div>
           </div>
         </div>
@@ -285,6 +429,7 @@
   <span class="k">"role"</span>: <span class="s">"AI/ML | GenAI | Forward Deployed Engineer"</span>,
   <span class="k">"type"</span>: [<span class="s">"full-time"</span>, <span class="s">"W2"</span>, <span class="s">"C2C"</span>],
   <span class="k">"location"</span>: <span class="s">"anywhere in the US"</span>,
+  <span class="k">"hours"</span>: <span class="s">"Mon to Fri, 9:00 AM to 5:00 PM Central"</span>,
   <span class="k">"contact"</span>: {
     <span class="k">"email"</span>: <span class="s">"harishyeluri8800@gmail.com"</span>,
     <span class="k">"phone"</span>: <span class="s">"+1 (913) 553-0359"</span>,
@@ -302,6 +447,7 @@
 </main>
 
 <script src="js/skills.js"></script>
+<script src="js/profile.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
