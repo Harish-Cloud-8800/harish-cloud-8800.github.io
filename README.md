@@ -2,7 +2,7 @@
 
 AI/ML, Generative AI and Forward Deployed Engineer portfolio, built like a production AI console.
 
-**Live site:** https://YOUR-USERNAME.github.io
+**Live site:** https://harish-cloud-8800.github.io
 
 ## What's inside
 
