@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Harish Yeluri: AI/ML, Generative AI and Forward Deployed Engineer. Production LLM platforms, LangGraph agents and RAG systems.">
+<meta property="og:title" content="Harish Yeluri · AI/ML Engineer">
+<meta property="og:description" content="Ask my resume anything. Production AI: 10K+ daily inferences, 99.5% uptime, −35% inference cost.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Harish Yeluri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: the portfolio as a production AI console. Ask box (in-browser BM25 over the resume) up top, then metrics, deployment log, eval table, dependency manifest, model card, hire endpoint. */
+:root {
+  --bg: #EEF0F3;
+  --panel: #FFFFFF;
+  --sunk: #F5F6F8;
+  --ink: #12141A;
+  --muted: #5E6573;
+  --faint: #8A909C;
+  --line: #DCE0E6;
+  --accent: #2747F5;
+  --accent-soft: #E6EAFE;
+  --ok: #0E8A5F;
+  --ok-soft: #DDF3EA;
+  --warn: #B26A00;
+  --hl: #FFF2B8;
+  --on-accent: #FFFFFF;
+  --sans: "Geist", "Segoe UI", system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C0E12; --panel: #14171D; --sunk: #191D24; --ink: #ECEEF2; --muted: #9AA1AE; --faint: #6D7480;
+    --line: #262B34; --accent: #7D92FF; --accent-soft: #1C2347; --ok: #3DD29A; --ok-soft: #12302A; --warn: #F0B04A; --hl: #4A3F12; --on-accent: #0C0E12;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C0E12; --panel: #14171D; --sunk: #191D24; --ink: #ECEEF2; --muted: #9AA1AE; --faint: #6D7480;
+  --line: #262B34; --accent: #7D92FF; --accent-soft: #1C2347; --ok: #3DD29A; --ok-soft: #12302A; --warn: #F0B04A; --hl: #4A3F12; --on-accent: #0C0E12;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--sans); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; }
+p { margin: 0; }
+code, .mono { font-family: var(--mono); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; }
+.label { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); display: inline-block; box-shadow: 0 0 0 3px var(--ok-soft); flex: none; }
+@media (prefers-reduced-motion: no-preference) { .dot.live { animation: pulse 2s ease-in-out infinite; } @keyframes pulse { 50% { box-shadow: 0 0 0 6px var(--ok-soft); } } }
+
+/* Top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 18px; height: 56px; }
+.crumb { font: 500 13px var(--mono); display: flex; align-items: center; gap: 8px; white-space: nowrap; text-decoration: none; color: var(--ink); }
+.crumb span { color: var(--faint); }
+.tabs { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; min-width: 0; flex: 1; }
+.tabs a:first-child { margin-left: auto; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs a { font: 500 13px var(--sans); color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 8px; white-space: nowrap; }
+.tabs a:hover { color: var(--ink); background: var(--sunk); }
+.tabs a.on { color: var(--ink); background: var(--panel); box-shadow: 0 0 0 1px var(--line); }
+
+/* Hero */
+.hero { padding-block: 44px 24px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; }
+.status { display: inline-flex; align-items: center; gap: 8px; font: 500 12px var(--mono); padding: 6px 12px 6px 10px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); max-width: 100%; }
+.status span:last-child { min-width: 0; }
+.status b { font-weight: 600; color: var(--ok); }
+.hero h1 { margin-top: 22px; font-size: clamp(42px, 5.6vw, 70px); line-height: .98; letter-spacing: -.045em; font-weight: 600; }
+.hero .roles { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 12px var(--mono); padding: 5px 10px; border-radius: 7px; background: var(--panel); border: 1px solid var(--line); color: var(--ink); }
+.chip.acc { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.hero .lede { margin-top: 18px; color: var(--muted); font-size: 16px; max-width: 46ch; }
+.hero .lede b { color: var(--ink); font-weight: 600; }
+.hero-meta { margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.hero-meta div { padding: 12px 12px 0 0; display: grid; gap: 2px; min-width: 0; }
+.hero-meta b { font: 600 20px var(--sans); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.hero-meta span { font-size: 12px; color: var(--muted); }
+.btns { margin-top: 22px; display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 9px; font: 500 14px var(--sans); text-decoration: none; cursor: pointer; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.btn:hover { border-color: var(--accent); }
+.btn.pri { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn svg { width: 15px; height: 15px; }
+
+/* Ask console */
+.ask { overflow: hidden; box-shadow: 0 30px 60px -40px rgba(18,20,26,.35); }
+.ask-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--sunk); flex-wrap: wrap; }
+.ask-head .t { display: flex; align-items: center; gap: 8px; font: 500 13px var(--mono); }
+.ask-head .label { text-transform: none; letter-spacing: 0; }
+.ask-form { display: flex; gap: 8px; padding: 14px 16px 10px; }
+.ask-form input { flex: 1; min-width: 0; font: 400 15px var(--sans); padding: 11px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--sunk); color: var(--ink); }
+.ask-form input::placeholder { color: var(--faint); }
+.ask-form button { font: 500 14px var(--sans); padding: 0 16px; border-radius: 10px; border: 0; background: var(--accent); color: var(--on-accent); cursor: pointer; }
+.sugs { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 16px 14px; }
+.sugs button { font: 400 12.5px var(--sans); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.sugs button:hover { color: var(--ink); border-color: var(--accent); }
+.answer { border-top: 1px solid var(--line); padding: 16px; display: grid; gap: 12px; min-height: 230px; align-content: start; }
+.q { font: 500 13px var(--mono); color: var(--muted); }
+.q::before { content: "> "; color: var(--accent); }
+.a { font-size: 15.5px; line-height: 1.65; }
+.a .cite { font: 500 10.5px var(--mono); color: var(--accent); background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; margin-left: 3px; vertical-align: 1px; cursor: pointer; border: 0; }
+.a .caret { display: inline-block; width: 7px; height: 1.05em; background: var(--accent); vertical-align: -2px; margin-left: 2px; }
+.trace { display: flex; gap: 14px; flex-wrap: wrap; font: 400 11.5px var(--mono); color: var(--faint); }
+.trace b { color: var(--muted); font-weight: 500; }
+.srcs { display: grid; gap: 6px; }
+.src { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 9px; background: var(--sunk); border: 1px solid var(--line); font-size: 12.5px; text-align: left; cursor: pointer; color: var(--ink); font-family: var(--sans); }
+.src:hover { border-color: var(--accent); }
+.src .n { font: 500 10.5px var(--mono); color: var(--accent); }
+.src .s { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+.src .s b { color: var(--ink); font-weight: 500; }
+.src .sc { font: 400 11px var(--mono); color: var(--faint); font-variant-numeric: tabular-nums; }
+.note { font-size: 12px; color: var(--faint); padding: 10px 16px; border-top: 1px dashed var(--line); }
+
+/* Sections */
+section.sec { padding-block: 56px; }
+.sec-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.sec-head h2 { font-size: clamp(26px, 3.2vw, 36px); letter-spacing: -.03em; }
+.sec-head h2 code { font-size: .55em; color: var(--faint); font-weight: 400; margin-right: 10px; vertical-align: middle; letter-spacing: 0; }
+.sec-head p { color: var(--muted); max-width: 52ch; font-size: 14px; }
+.flash { animation: flash 1.6s ease-out; }
+@keyframes flash { 0%, 30% { background: var(--hl); } 100% { background: transparent; } }
+
+/* Summary */
+.readme { overflow: hidden; }
+.readme-head { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--line); background: var(--sunk); font: 500 12px var(--mono); color: var(--muted); }
+.readme-head svg { width: 14px; height: 14px; }
+.readme-body { padding: 26px clamp(18px, 4vw, 40px) 30px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 36px; }
+.readme-body h3 { font-size: 22px; letter-spacing: -.02em; margin-bottom: 12px; }
+.readme-body p { color: var(--muted); font-size: 15.5px; line-height: 1.7; max-width: 66ch; }
+.readme-body p + p { margin-top: 12px; }
+.readme-body p b { color: var(--ink); font-weight: 600; }
+.hl-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; align-content: start; }
+.hl-list li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.hl-list li:last-child { border-bottom: 0; }
+.hl-list li::before { content: "✓"; color: var(--ok); font-weight: 600; }
+.hl-list b { font-weight: 600; }
+
+/* Metrics */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpi { padding: 16px; display: grid; gap: 10px; align-content: start; }
+.kpi .top-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.kpi .val { font: 600 34px/1 var(--sans); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.kpi .val small { font-size: .5em; color: var(--muted); font-weight: 500; margin-left: 2px; }
+.kpi p { font-size: 13px; color: var(--muted); }
+.kpi .src-tag { font: 400 11px var(--mono); color: var(--faint); }
+.delta { font: 500 11px var(--mono); padding: 2px 6px; border-radius: 5px; background: var(--ok-soft); color: var(--ok); white-space: nowrap; }
+.mini { display: grid; gap: 4px; }
+.mini div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; align-items: center; font: 400 10.5px var(--mono); color: var(--faint); }
+.mini i { display: block; height: 7px; border-radius: 4px; background: var(--line); }
+.mini i.after { background: var(--accent); }
+.gauge { height: 7px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.gauge i { display: block; height: 100%; background: var(--ok); }
+
+/* Deployments */
+.deploys { display: grid; gap: 12px; }
+.dep { padding: 0; overflow: hidden; }
+.dep-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.ver { font: 600 13px var(--mono); padding: 4px 8px; border-radius: 6px; background: var(--sunk); border: 1px solid var(--line); }
+.dep-head h3 { font-size: 18px; letter-spacing: -.02em; }
+.dep-head h3 span { color: var(--muted); font-weight: 400; }
+.dep-head .meta { font: 400 12px var(--mono); color: var(--faint); margin-top: 2px; }
+.state { display: inline-flex; align-items: center; gap: 7px; font: 500 12px var(--mono); color: var(--muted); white-space: nowrap; }
+.state.run { color: var(--ok); }
+.state .dot.done { background: var(--faint); box-shadow: none; }
+.diff { margin: 0; padding: 12px 0; list-style: none; font: 400 13px/1.55 var(--mono); }
+.diff li { display: grid; grid-template-columns: 34px minmax(0, 1fr); padding: 3px 18px 3px 0; }
+.diff li::before { content: "+"; text-align: center; color: var(--ok); font-weight: 600; }
+.diff li.ctx::before { content: "·"; color: var(--faint); }
+.diff li span { min-width: 0; overflow-wrap: anywhere; color: var(--muted); font-family: var(--sans); font-size: 14px; }
+.diff li b { color: var(--ink); font-weight: 600; }
+.diff li.add { background: color-mix(in srgb, var(--ok-soft) 55%, transparent); }
+
+/* Evals */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 760px; }
+th { text-align: left; font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--faint); padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--sunk); }
+td { padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+td.num { font: 500 14px var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.base { color: var(--faint); }
+td .sys { font-weight: 600; }
+td .how { color: var(--muted); font-size: 13px; margin-top: 3px; max-width: 46ch; }
+td .stack { font: 400 11.5px var(--mono); color: var(--faint); margin-top: 6px; }
+.pill { font: 500 12px var(--mono); padding: 3px 8px; border-radius: 6px; background: var(--ok-soft); color: var(--ok); white-space: nowrap; }
+
+/* Stack */
+.stack-tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.stack-tools input { flex: 1 1 260px; min-width: 0; font: 400 14px var(--mono); padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.stack-tools .count { font: 400 12px var(--mono); color: var(--faint); }
+.manifest { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.group { padding: 14px 16px; }
+.group h3 { font: 500 12px var(--mono); color: var(--accent); margin-bottom: 10px; display: flex; justify-content: space-between; }
+.group h3 span { color: var(--faint); }
+.deps { display: flex; flex-wrap: wrap; gap: 5px; }
+.dep-chip { font: 400 12.5px var(--mono); padding: 4px 8px; border-radius: 6px; background: var(--sunk); border: 1px solid var(--line); cursor: default; position: relative; }
+.dep-chip.prod { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.dep-chip.prod::after { content: "prod"; font-size: 9px; color: var(--accent); margin-left: 6px; vertical-align: 1px; }
+.dep-chip.match { background: var(--hl); }
+.group.empty { display: none; }
+
+/* Model card */
+.card-grid { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 12px; }
+.idc { padding: 20px; display: grid; gap: 14px; align-content: start; justify-items: start; }
+.idc img { width: 100%; max-width: 260px; aspect-ratio: 1; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); }
+.idc h3 { font-size: 20px; letter-spacing: -.02em; }
+.idc .sub { color: var(--muted); font-size: 13px; margin-top: -8px; }
+.mc { padding: 6px 20px; }
+.mc dl { margin: 0; display: grid; grid-template-columns: 190px minmax(0, 1fr); }
+.mc dt, .mc dd { padding: 13px 0; border-bottom: 1px solid var(--line); }
+.mc dt { font: 500 12px var(--mono); color: var(--faint); padding-right: 12px; }
+.mc dd { margin: 0; min-width: 0; }
+.mc dl > :nth-last-child(-n+2) { border-bottom: 0; }
+.mc ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+.mc .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Hire endpoint */
+.hire { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; }
+.hire-l { padding: 24px; display: grid; gap: 16px; align-content: start; }
+.hire-l h2 { font-size: clamp(30px, 4vw, 46px); letter-spacing: -.04em; line-height: 1; }
+.hire-l p { color: var(--muted); }
+.req { padding: 0; overflow: hidden; }
+.req-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--sunk); font: 500 12px var(--mono); flex-wrap: wrap; }
+.req-head .m { color: var(--ok); font-weight: 600; margin-right: 6px; }
+.req pre { margin: 0; padding: 16px; overflow-x: auto; font: 400 13px/1.7 var(--mono); }
+.req .k { color: var(--accent); } .req .s { color: var(--ok); } .req .c { color: var(--faint); }
+.cbtn { font: 500 11px var(--mono); padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+.contact-rows { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.contact-rows div { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.contact-rows span { font: 500 11px var(--mono); color: var(--faint); text-transform: uppercase; letter-spacing: .06em; }
+.contact-rows b { font-weight: 500; overflow-wrap: anywhere; }
+footer { padding-block: 28px 44px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 400 12px var(--mono); color: var(--faint); }
+
+@media (max-width: 1000px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .manifest { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hire, .card-grid, .readme-body { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .wrap { padding-inline: 16px; }
+  .crumb span.hide-sm { display: none; }
+  .kpis, .manifest { grid-template-columns: minmax(0, 1fr); }
+  .hero-meta { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mc dl { grid-template-columns: minmax(0, 1fr); }
+  .mc dt { border-bottom: 0; padding-bottom: 0; }
+  .dep-head { grid-template-columns: auto minmax(0, 1fr); }
+  .dep-head .state { grid-column: 1 / -1; }
+  .ask-form { flex-direction: column; }
+  .ask-form button { padding: 11px; }
+  section.sec { padding-block: 40px; }
+}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="crumb" href="#top"><span class="dot live" aria-hidden="true"></span>harish-yeluri <span class="hide-sm">/ prod</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#ask" data-sec="ask">Ask</a>
+      <a href="#summary" data-sec="summary">Summary</a>
+      <a href="#metrics" data-sec="metrics">Metrics</a>
+      <a href="#deployments" data-sec="deployments">Experience</a>
+      <a href="#evals" data-sec="evals">Projects</a>
+      <a href="#stack" data-sec="stack">Skills</a>
+      <a href="#card" data-sec="card">Profile</a>
+      <a href="#hire" data-sec="hire">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero" id="ask">
+      <div>
+        <span class="status"><span class="dot live" aria-hidden="true"></span><b>Available</b><span>Full-time · W2 · C2C · relocating anywhere in the US</span></span>
+        <h1>Harish Yeluri</h1>
+        <div class="roles" aria-label="Target roles">
+          <span class="chip acc">AI/ML Engineer</span><span class="chip acc">GenAI Engineer</span><span class="chip acc">Forward Deployed Engineer</span>
+        </div>
+        <p class="lede">I build <b>production AI that people actually use</b>: LangGraph agents, RAG that stops hallucinating, and LLM platforms that stay fast and cheap. 4+ years at DataRobot, Yellow.ai and Accenture.</p>
+        <div class="hero-meta">
+          <div><b>10K+</b><span>daily inferences</span></div>
+          <div><b>99.5%</b><span>uptime</span></div>
+          <div><b>−35%</b><span>inference cost</span></div>
+        </div>
+        <div class="btns">
+          <a class="btn pri" href="#hire">Hire me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn" href="https://www.linkedin.com/in/harish8800/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <button class="btn" type="button" id="introBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg><span>Hear my intro</span></button>
+        </div>
+      </div>
+
+      <div class="panel ask" aria-label="Ask about my experience">
+        <div class="ask-head">
+          <span class="t"><span class="dot" aria-hidden="true"></span>ask-harish</span>
+          <span class="label">retrieval over my resume · BM25 · runs in your browser</span>
+        </div>
+        <form class="ask-form" id="askForm">
+          <label for="askInput" class="label" style="position:absolute;left:-9999px">Ask a question</label>
+          <input id="askInput" type="text" autocomplete="off" placeholder="Ask anything about my experience…">
+          <button type="submit">Ask</button>
+        </form>
+        <div class="sugs" id="sugs"></div>
+        <div class="answer" id="answer" aria-live="polite">
+          <p class="q" id="aQ">What has Harish built with agents?</p>
+          <p class="a" id="aA">At DataRobot I built production agentic workflows with LangGraph and LangChain: agents that plan multi-step tasks, call tools and APIs, route between models, and keep state and memory with LangGraph state, Redis and vector databases.<button class="cite" type="button" data-go="dep-dr">1</button> I connected those agents to internal systems through REST APIs, Model Context Protocol (MCP) and Semantic Kernel, and built shared components so new workflows start from one architecture.<button class="cite" type="button" data-go="dep-dr">2</button> I also evaluated LangGraph, LangChain, CrewAI and AutoGen and led the adoption of LangGraph for production orchestration.<button class="cite" type="button" data-go="dep-dr">3</button></p>
+          <div class="trace" id="aTrace"><span>retrieved <b>3</b> chunks</span><span>index <b>48</b> chunks</span><span>model <b>none: extractive</b></span></div>
+          <div class="srcs" id="aSrcs"></div>
+        </div>
+        <p class="note">No LLM here, so it can't invent anything: every answer is quoted from my resume, with its source. If the resume doesn't cover a question, it says so.</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="sec" id="summary" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>00</code>Professional summary</h2>
+        <p>The short version, for anyone reading in a hurry.</p>
+      </div>
+      <article class="panel readme">
+        <div class="readme-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>README.md</div>
+        <div class="readme-body">
+          <div>
+            <h3>AI/ML engineer who ships generative AI to production, and stays with it.</h3>
+            <p>I'm an AI/ML Engineer with <b>4+ years of experience</b> designing, building and running production AI: <b>LLM applications, RAG pipelines, multi-agent workflows and the ML infrastructure</b> underneath them. I work across the full lifecycle, from model selection, fine-tuning and retrieval tuning to deployment, monitoring and cost control.</p>
+            <p>At <b>DataRobot</b> I own an LLM platform serving <b>10,000+ inferences a day</b> across GPT-4, Claude and Mistral at <b>99.5% uptime</b>, where I built LangGraph agents, raised retrieval accuracy <b>40%</b> and cut inference cost <b>35%</b>. Before that I built a Claude-powered assistant at <b>Yellow.ai</b> that brought hallucinations down from <b>8% to 2%</b>, and large-scale ML pipelines for healthcare and banking clients at <b>Accenture</b>.</p>
+            <p>I do my best work close to the people using the system: turning a vague business problem into requirements, integrating AI with the tools they already run, and owning it in production. I'm looking for <b>AI/ML Engineer, Generative AI Engineer and Forward Deployed Engineer</b> roles (full-time, W2 or C2C) and will relocate anywhere in the US.</p>
+          </div>
+          <ul class="hl-list" aria-label="Highlights">
+            <li><span><b>Agents:</b> LangGraph, LangChain, MCP, tool calling, multi-agent orchestration</span></li>
+            <li><span><b>RAG:</b> hybrid search, BM25 re-ranking, semantic chunking, guardrails</span></li>
+            <li><span><b>LLMs:</b> Claude, GPT-4o, Llama, Mistral; LoRA fine-tuning, GPTQ quantization</span></li>
+            <li><span><b>MLOps:</b> Docker, Kubernetes, Terraform, MLflow, Argo CD, Grafana</span></li>
+            <li><span><b>Cloud:</b> AWS (Bedrock, SageMaker, EKS), Azure OpenAI, Google Cloud</span></li>
+            <li><span><b>Customer-facing:</b> requirements, demos, 20+ API integrations, production escalation</span></li>
+            <li><span><b>Certified:</b> AWS ML Specialty, AWS Solutions Architect, Azure AI Engineer</span></li>
+            <li><span><b>Education:</b> MS Computer Science, University of Central Missouri</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="metrics">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>01</code>Production metrics</h2>
+        <p>Numbers from systems I built or owned. Each tile names where it came from.</p>
+      </div>
+      <div class="kpis">
+        <div class="panel kpi"><div class="top-row"><span class="label">Daily inferences</span><span class="delta">live</span></div><div class="val">10K<small>+</small></div><p>Across GPT-4, Claude and Mistral on one platform</p><span class="src-tag">DataRobot · LLM platform</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Uptime</span><span class="delta">SLO met</span></div><div class="val">99.5<small>%</small></div><div class="gauge" aria-hidden="true"><i style="width:99.5%"></i></div><span class="src-tag">DataRobot · Kubernetes</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Inference cost</span><span class="delta">−35%</span></div><div class="mini" aria-hidden="true"><div>before<i style="width:100%"></i></div><div>after<i class="after" style="width:65%"></i></div></div><p>Caching, model routing, batching, prompts</p><span class="src-tag">DataRobot</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Retrieval accuracy</span><span class="delta">+40%</span></div><div class="mini" aria-hidden="true"><div>before<i style="width:71%"></i></div><div>after<i class="after" style="width:100%"></i></div></div><p>Hybrid search with BM25 re-ranking</p><span class="src-tag">DataRobot · RAG</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Hallucination rate</span><span class="delta">8% → 2%</span></div><div class="mini" aria-hidden="true"><div>before<i style="width:100%"></i></div><div>after<i class="after" style="width:25%"></i></div></div><p>Answer relevance up 35%</p><span class="src-tag">Yellow.ai · enterprise RAG</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Latency</span><span class="delta">p95</span></div><div class="val">&lt;500<small>ms</small></div><p>1,000+ daily queries; 500+ req/min inference API</p><span class="src-tag">Yellow.ai</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Models benchmarked</span><span class="delta">gated</span></div><div class="val">15<small>+</small></div><p>Quality, latency and cost before each release</p><span class="src-tag">DataRobot · evals</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Data processed</span><span class="delta">weekly</span></div><div class="val">5<small>TB+</small></div><p>Spark on Databricks; 98% data quality</p><span class="src-tag">Accenture</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="deployments">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>02</code>Deployment log</h2>
+        <p>My career, newest release first. Green lines are what each role shipped.</p>
+      </div>
+      <div class="deploys">
+        <article class="panel dep" id="dep-dr">
+          <div class="dep-head">
+            <span class="ver">v3</span>
+            <div><h3>DataRobot <span>· Machine Learning Engineer</span></h3><p class="meta">Nov 2024 – present · remote · agentic AI, LLM platform, MLOps</p></div>
+            <span class="state run"><span class="dot live" aria-hidden="true"></span>running</span>
+          </div>
+          <ul class="diff">
+            <li class="add"><span>Own a production ML/LLM platform serving <b>10,000+ daily inferences</b> across GPT-4, Claude and Mistral on AWS (EKS, SageMaker, Bedrock) and Azure OpenAI, from design to rollback.</span></li>
+            <li class="add"><span>Built <b>LangGraph and LangChain agents</b> that plan, call tools, route between models and keep state and memory.</span></li>
+            <li class="add"><span>Integrated agents with internal systems through REST APIs, <b>MCP</b> and Semantic Kernel; built shared components for new workflows.</span></li>
+            <li class="add"><span>Hybrid semantic-keyword RAG with BM25 re-ranking: <b>+40% retrieval accuracy</b>, fewer hallucinations.</span></li>
+            <li class="add"><span>Cut <b>inference cost 35%</b> with Redis caching, dynamic model selection, batching and prompt optimization.</span></li>
+            <li class="add"><span>Docker, Kubernetes, Terraform, GitHub Actions, Argo CD, Grafana and Prometheus: <b>99.5% uptime</b>; escalation point for production AI issues.</span></li>
+            <li class="add"><span>Evaluation framework with quality gates across <b>15+ models</b>; led LangGraph adoption; mentor 4 engineers.</span></li>
+            <li class="ctx"><span>Partner with product and business stakeholders on requirements, success criteria and iteration demos; write design docs and runbooks.</span></li>
+          </ul>
+        </article>
+        <article class="panel dep" id="dep-ya">
+          <div class="dep-head">
+            <span class="ver">v2</span>
+            <div><h3>Yellow.ai <span>· Machine Learning Engineer</span></h3><p class="meta">Apr 2023 – Jan 2024 · India · generative AI, RAG, full-stack</p></div>
+            <span class="state"><span class="dot done" aria-hidden="true"></span>completed</span>
+          </div>
+          <ul class="diff">
+            <li class="add"><span>Full-stack Claude assistant (FastAPI, React, TypeScript): <b>1,000+ daily queries under 500 ms</b>, support efficiency <b>+45%</b>.</span></li>
+            <li class="add"><span>Custom adapters for <b>20+ third-party APIs</b> with mismatched formats, auth and rate limits; Kafka event-driven integrations.</span></li>
+            <li class="add"><span>Enterprise RAG with semantic chunking and guardrails: <b>hallucinations 8% → 2%</b>, relevance <b>+35%</b>.</span></li>
+            <li class="add"><span>Llama 2 + LoRA: <b>+32% accuracy</b>; GPTQ quantization: <b>80% smaller</b>.</span></li>
+            <li class="add"><span>PyTorch / YOLOv3 at <b>92% precision</b> behind FastAPI at 500+ req/min; MLflow + CI/CD cut release work <b>60%</b>.</span></li>
+          </ul>
+        </article>
+        <article class="panel dep" id="dep-ac">
+          <div class="dep-head">
+            <span class="ver">v1</span>
+            <div><h3>Accenture <span>· Machine Learning Engineer</span></h3><p class="meta">Nov 2021 – Mar 2023 · India · ML pipelines, healthcare &amp; banking</p></div>
+            <span class="state"><span class="dot done" aria-hidden="true"></span>completed</span>
+          </div>
+          <ul class="diff">
+            <li class="add"><span>Churn model at <b>88% accuracy, 0.91 AUC-ROC</b>; Optuna across 1,000+ configurations.</span></li>
+            <li class="add"><span>Spark on Databricks over <b>5 TB+ a week</b>; 40+ features, accuracy <b>+25%</b>, training time <b>−30%</b>.</span></li>
+            <li class="add"><span>Drift detection with automated retraining at <b>98% data quality</b>; de-identified healthcare data under PHI controls.</span></li>
+            <li class="ctx"><span>Containerized ML on Red Hat OpenShift across Azure and Google Cloud; explained model drivers to business stakeholders.</span></li>
+          </ul>
+        </article>
+        <article class="panel dep" id="dep-edu">
+          <div class="dep-head">
+            <span class="ver">v0</span>
+            <div><h3>Education <span>· base model</span></h3><p class="meta">MS Computer Science, University of Central Missouri, Dec 2025 · B.Tech ECE, JNTU Kakinada, 2022, CGPA 9.0/10</p></div>
+            <span class="state"><span class="dot done" aria-hidden="true"></span>trained</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="evals">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>03</code>Eval results</h2>
+        <p>Projects scored the way I'd score a model: the metric, where it started, where it ended.</p>
+      </div>
+      <div class="panel tbl-wrap">
+        <table>
+          <thead><tr><th>System</th><th>Metric</th><th>Baseline</th><th>Result</th><th>Δ</th></tr></thead>
+          <tbody>
+            <tr><td><div class="sys">LangGraph agent workflows</div><div class="how">Agents that plan, call tools and APIs, route models and keep state; wired to internal systems via MCP.</div><div class="stack">LangGraph · LangChain · MCP · Redis</div></td><td>Daily inferences served</td><td class="num base">–</td><td class="num">10,000+</td><td><span class="pill">prod</span></td></tr>
+            <tr><td><div class="sys">Hybrid-search RAG</div><div class="how">Semantic + keyword retrieval with BM25 re-ranking for enterprise document search.</div><div class="stack">LangChain · Elasticsearch · Pinecone</div></td><td>Retrieval accuracy</td><td class="num base">1.00×</td><td class="num">1.40×</td><td><span class="pill">+40%</span></td></tr>
+            <tr><td><div class="sys">Multi-model LLM platform</div><div class="how">GPT-4, Claude and Mistral behind caching, batching and dynamic model selection.</div><div class="stack">Kubernetes · Bedrock · Redis · Argo CD</div></td><td>Inference cost</td><td class="num base">100</td><td class="num">65</td><td><span class="pill">−35%</span></td></tr>
+            <tr><td><div class="sys">Enterprise RAG (Yellow.ai)</div><div class="how">Semantic chunking, context optimization, query refinement and guardrails.</div><div class="stack">Claude API · vector DB · guardrails</div></td><td>Hallucination rate</td><td class="num base">8%</td><td class="num">2%</td><td><span class="pill">−75%</span></td></tr>
+            <tr><td><div class="sys">Claude support assistant</div><div class="how">React + FastAPI app with 20+ custom API adapters.</div><div class="stack">Claude API · React · FastAPI · Kafka</div></td><td>Support efficiency</td><td class="num base">1.00×</td><td class="num">1.45×</td><td><span class="pill">+45%</span></td></tr>
+            <tr><td><div class="sys">Domain-tuned Llama 2</div><div class="how">LoRA fine-tuning, then GPTQ quantization for constrained hardware.</div><div class="stack">PEFT · GPTQ · Hugging Face</div></td><td>Task accuracy / size</td><td class="num base">1.00× / 100%</td><td class="num">1.32× / 20%</td><td><span class="pill">+32% · −80%</span></td></tr>
+            <tr><td><div class="sys">Object detection service</div><div class="how">YOLOv3 models served through FastAPI.</div><div class="stack">PyTorch · YOLOv3 · FastAPI</div></td><td>Precision · throughput</td><td class="num base">–</td><td class="num">92% · 500+ rpm</td><td><span class="pill">p95 &lt;500ms</span></td></tr>
+            <tr><td><div class="sys">Model release pipeline</div><div class="how">MLflow registry with CI/CD and automated tests.</div><div class="stack">MLflow · GitHub Actions</div></td><td>Manual release work</td><td class="num base">100</td><td class="num">40</td><td><span class="pill">−60%</span></td></tr>
+            <tr><td><div class="sys">Churn prediction</div><div class="how">Spark features and Optuna tuning over 1,000+ configurations.</div><div class="stack">Spark · Databricks · scikit-learn · Optuna</div></td><td>AUC-ROC · accuracy</td><td class="num base">–</td><td class="num">0.91 · 88%</td><td><span class="pill">+25% acc</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="stack">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>04</code>Dependencies</h2>
+        <p>Every skill across my resumes. Ones marked <code style="color:var(--accent)">prod</code> have run in production with a result attached.</p>
+      </div>
+      <div class="stack-tools">
+        <label for="skillQ" class="label" style="position:absolute;left:-9999px">Filter skills</label>
+        <input id="skillQ" type="search" placeholder="$ grep skills   (try: langgraph, aws, eval)" autocomplete="off">
+        <span class="count" id="skillCount"></span>
+      </div>
+      <div class="manifest" id="manifest"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="card">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>05</code>Model card</h2>
+        <p>The standard way to document a model, applied to me.</p>
+      </div>
+      <div class="card-grid">
+        <div class="panel idc">
+          <img src="data:image/jpeg;base64,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" alt="Portrait of Harish Yeluri" width="260" height="260">
+          <div><h3>Harish Yeluri</h3></div>
+          <p class="sub">AI/ML Engineer · Overland Park, Kansas</p>
+          <span class="status" style="font-size:11px"><span class="dot live" aria-hidden="true"></span><b>Available</b><span>W2 · C2C · full-time</span></span>
+        </div>
+        <div class="panel mc">
+          <dl>
+            <dt>intended_use</dt><dd><div class="chips"><span class="chip acc">AI/ML Engineer</span><span class="chip acc">Generative AI Engineer</span><span class="chip acc">Forward Deployed Engineer</span></div></dd>
+            <dt>strengths</dt><dd>Agents and RAG in production · LLM platform reliability and cost · working directly with customers and stakeholders</dd>
+            <dt>training_data</dt><dd>4+ years: DataRobot (2024–now), Yellow.ai (2023–24), Accenture (2021–23) · healthcare, banking, enterprise support</dd>
+            <dt>evaluation</dt><dd>10K+ inferences/day · 99.5% uptime · −35% cost · +40% retrieval · 8% → 2% hallucinations</dd>
+            <dt>serving_terms</dt><dd>Full-time · W2 · C2C</dd>
+            <dt>deployment_region</dt><dd>Based in Overland Park, KS · open to relocate anywhere in the US</dd>
+            <dt>certifications</dt><dd><ul>
+              <li>AWS Certified Machine Learning – Specialty</li>
+              <li>AWS Certified Solutions Architect – Associate</li>
+              <li>Microsoft Certified: Azure AI Engineer Associate</li>
+              <li>Generative AI with Large Language Models · DeepLearning.AI</li>
+              <li>LangChain for Large Language Models · DeepLearning.AI</li>
+              <li>Deep Learning Specialization · DeepLearning.AI</li>
+              <li>Machine Learning Specialization · Stanford University</li>
+            </ul></dd>
+            <dt>education</dt><dd>MS Computer Science, University of Central Missouri (Dec 2025) · B.Tech ECE, JNTU Kakinada (2022, CGPA 9.0/10)</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="hire">
+    <div class="wrap">
+      <div class="hire">
+        <div class="panel hire-l">
+          <span class="label"><code>06</code> Contact</span>
+          <h2>Ready to deploy.</h2>
+          <p>Looking for AI/ML, Generative AI and Forward Deployed Engineer roles. Full-time, W2 or C2C, and I'll relocate anywhere in the US.</p>
+          <div class="contact-rows">
+            <div><span>Email</span><b id="email">harishyeluri8800@gmail.com</b><button class="cbtn" type="button" data-copy="email">Copy</button></div>
+            <div><span>Phone</span><b id="phone">+1 (913) 553-0359</b><button class="cbtn" type="button" data-copy="phone">Copy</button></div>
+            <div><span>LinkedIn</span><a href="https://www.linkedin.com/in/harish8800/" target="_blank" rel="noopener">in/harish8800 ↗</a></div>
+          </div>
+        </div>
+        <div class="panel req">
+          <div class="req-head"><span><span class="m">POST</span>/v1/hire/harish-yeluri</span><button class="cbtn" type="button" data-copy="reqBody">Copy</button></div>
+<pre id="reqBody"><span class="c"># the request I'm hoping for</span>
+{
+  <span class="k">"role"</span>: <span class="s">"AI/ML | GenAI | Forward Deployed Engineer"</span>,
+  <span class="k">"type"</span>: [<span class="s">"full-time"</span>, <span class="s">"W2"</span>, <span class="s">"C2C"</span>],
+  <span class="k">"location"</span>: <span class="s">"anywhere in the US"</span>,
+  <span class="k">"contact"</span>: {
+    <span class="k">"email"</span>: <span class="s">"harishyeluri8800@gmail.com"</span>,
+    <span class="k">"phone"</span>: <span class="s">"+1 (913) 553-0359"</span>,
+    <span class="k">"linkedin"</span>: <span class="s">"linkedin.com/in/harish8800"</span>
+  }
+}
+
+<span class="c"># 200 OK</span>
+{ <span class="k">"status"</span>: <span class="s">"available"</span>, <span class="k">"relocation"</span>: <span class="s">"yes"</span> }</pre>
+        </div>
+      </div>
+      <footer><span>harish-yeluri · prod · AI/ML · GenAI · Forward Deployed</span><span>uptime 99.5% and counting</span></footer>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- copy ---------- */
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = $(b.dataset.copy), label = b.textContent;
+      var ok = function () { b.textContent = "Copied"; setTimeout(function () { b.textContent = label; }, 1500); };
+      var fb = function () { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected"; setTimeout(function () { b.textContent = label; }, 1800); };
+      try { navigator.clipboard.writeText(el.textContent.trim()).then(ok, fb); } catch (e) { fb(); }
+    });
+  });
+
+  /* ---------- scroll spy ---------- */
+  var tabs = [].slice.call(document.querySelectorAll(".tabs a"));
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) tabs.forEach(function (a) { a.classList.toggle("on", a.dataset.sec === e.target.id); }); });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    tabs.forEach(function (a) { var s = $(a.dataset.sec); if (s) io.observe(s); });
+  }
+
+  /* ---------- jump + flash ---------- */
+  function go(id) {
+    var el = $(id); if (!el) return;
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+    el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+  }
+
+  /* ---------- knowledge base (from the resumes) ---------- */
+  var KB = [
+    ["dep-dr","DataRobot · agents","At DataRobot I built production agentic workflows with LangGraph and LangChain: agents that plan multi-step tasks, call tools and APIs, route between models, and keep state and memory with LangGraph state, Redis and vector databases.","agent agents agentic langgraph langchain tool calling planning memory state routing workflow automation"],
+    ["dep-dr","DataRobot · integrations","I connected those agents to internal systems through REST APIs, Model Context Protocol (MCP) and Semantic Kernel, and built shared components so new workflows start from one architecture.","mcp model context protocol semantic kernel integration integrate api internal systems tools reusable"],
+    ["dep-dr","DataRobot · framework choice","I evaluated LangGraph, LangChain, CrewAI and AutoGen and led the adoption of LangGraph for production agent orchestration and Redis for caching.","crewai autogen framework evaluate decision adoption architecture technology choice"],
+    ["dep-dr","DataRobot · platform","I own a production ML/LLM platform serving more than 10,000 inferences a day across GPT-4, Claude and Mistral, from design through deployment, monitoring, versioning and rollback.","platform llm inference production gpt-4 claude mistral own ownership mlops serving deploy deployment scale"],
+    ["dep-dr","DataRobot · cost","I cut inference costs by 35% with Redis caching, dynamic model selection, batching and prompt optimization, without losing quality.","cost costs cheap savings save money reduce optimization caching batching redis efficient budget"],
+    ["dep-dr","DataRobot · reliability","The platform runs on Docker and Kubernetes with Terraform, GitHub Actions and Argo CD, plus Grafana and Prometheus monitoring, and holds 99.5% uptime.","uptime reliability kubernetes docker terraform cicd ci cd argo github actions monitoring grafana prometheus devops infrastructure sre"],
+    ["dep-dr","DataRobot · escalation","I'm the technical escalation point for production AI issues, tracing latency spikes across Kubernetes, scaling and model-serving layers.","escalation incident debugging troubleshooting on-call latency production support issues"],
+    ["dep-dr","DataRobot · RAG","I engineered a hybrid semantic-keyword RAG pipeline with BM25 re-ranking that improved retrieval accuracy by 40% and reduced hallucinations in enterprise document search.","rag retrieval search hybrid bm25 rerank re-ranking accuracy documents enterprise vector hallucination"],
+    ["dep-dr","DataRobot · evaluation","I built an evaluation framework with quality gates that benchmarks 15+ models on quality, latency and cost to choose models for production.","evaluation eval evals benchmark benchmarking testing quality gates metrics model selection"],
+    ["dep-dr","DataRobot · stakeholders","I partner with product owners and business stakeholders to find automation opportunities, define requirements and success criteria, and run demos each iteration.","stakeholder stakeholders customer customers client clients requirements product business demo demos communication forward deployed fde collaborate"],
+    ["dep-dr","DataRobot · documentation","I write design and architecture docs, API and integration specs, and operational runbooks so other teams can maintain and extend the systems.","documentation docs runbooks design architecture specs writing"],
+    ["dep-dr","DataRobot · mentoring","I mentor 4 junior engineers and lead code reviews on MLOps and AI engineering practices.","mentor mentoring lead leadership code review team junior"],
+    ["dep-dr","DataRobot · cloud","On AWS I use EKS, EC2, S3, Lambda, SageMaker and Bedrock; I also integrate GPT-4 through Azure OpenAI with lifecycle management in Azure Machine Learning.","aws cloud eks ec2 s3 lambda sagemaker bedrock azure openai azure ml"],
+    ["dep-dr","DataRobot · data","I build SQL and Python ETL pipelines with PostgreSQL, dbt and Airflow that feed model training and retrieval, with automated data-quality checks.","sql etl data pipeline pipelines postgresql dbt airflow data engineering quality"],
+    ["dep-ya","Yellow.ai · assistant","At Yellow.ai I built a full-stack generative AI assistant on the Claude API with a FastAPI backend and React and TypeScript front end, handling 1,000+ daily queries under 500 ms and improving support efficiency by 45%.","chatbot assistant claude full stack fullstack react typescript fastapi frontend backend latency support conversational"],
+    ["dep-ya","Yellow.ai · API adapters","I wrote custom adapters for 20+ third-party APIs, including systems with limited or inconsistent APIs, handling mismatched formats, authentication differences and rate limits.","integration integrations api apis adapters third party rate limits auth customer systems forward deployed fde messy"],
+    ["dep-ya","Yellow.ai · RAG","I built an enterprise RAG system with semantic chunking, context optimization, query refinement and guardrails that cut the hallucination rate from 8% to 2% and raised answer relevance by 35%.","rag hallucination hallucinations guardrails chunking relevance knowledge base retrieval"],
+    ["dep-ya","Yellow.ai · fine-tuning","I fine-tuned Llama 2 with LoRA for a 32% accuracy gain on domain tasks, then used GPTQ quantization to make the model 80% smaller.","fine-tuning finetuning fine tune llama lora peft gptq quantization open source model training"],
+    ["dep-ya","Yellow.ai · computer vision","I built PyTorch and YOLOv3 object detection models at 92% precision, served by a FastAPI service at 500+ requests per minute with sub-500 ms p95 latency.","computer vision cv yolo pytorch object detection image deep learning"],
+    ["dep-ya","Yellow.ai · MLOps","I set up MLflow model versioning and CI/CD with automated testing, which cut manual release work by 60%.","mlflow mlops versioning release ci cd automation testing"],
+    ["dep-ya","Yellow.ai · events","I built event-driven integrations with Kafka connecting asynchronous services to downstream systems.","kafka events streaming event-driven asynchronous"],
+    ["dep-ya","Yellow.ai · knowledge sharing","I led internal sessions on generative AI, RAG architecture and API integrations for other engineers.","teaching knowledge sharing presentations communication sessions"],
+    ["dep-ac","Accenture · churn","At Accenture I built a churn prediction model with 88% accuracy and 0.91 AUC-ROC, tuned with Optuna across 1,000+ configurations.","churn classical machine learning ml model prediction scikit-learn optuna hyperparameter banking"],
+    ["dep-ac","Accenture · big data","I built Spark pipelines on Databricks over 5 TB+ of data a week and engineered 40+ features, improving accuracy by 25% and cutting training time by 30%.","spark databricks big data features feature engineering etl scale"],
+    ["dep-ac","Accenture · healthcare","I worked on de-identified healthcare data under PHI-handling and access controls, and I know the care regulated data needs.","healthcare health phi hipaa regulated privacy compliance security"],
+    ["dep-ac","Accenture · drift","I implemented data drift detection with automated retraining, keeping production data quality at 98%.","drift monitoring retraining data quality"],
+    ["dep-ac","Accenture · stakeholders","I explained model decisions and feature importance to non-technical business stakeholders.","explainability explain stakeholders communication business non-technical"],
+    ["dep-ac","Accenture · platforms","I deployed containerized ML on Red Hat OpenShift and worked across Azure and Google Cloud (BigQuery, Vertex AI, GKE, Cloud Run).","openshift gcp google cloud bigquery vertex gke cloud run azure"],
+    ["summary","Summary","I'm an AI/ML Engineer with 4+ years designing, building and running production AI: LLM applications, RAG pipelines, multi-agent workflows and the ML infrastructure underneath them.","summary overview about who profile introduction background describe"],
+    ["card","Roles","I'm looking for AI/ML Engineer, Generative AI Engineer and Forward Deployed Engineer roles.","roles looking job position title ai ml genai forward deployed engineer want"],
+    ["card","Work terms","I'm open to full-time, W2 and C2C roles.","w2 c2c full-time fulltime contract employment type terms"],
+    ["card","Location","I'm based in Overland Park, Kansas, and I'm open to relocating anywhere in the US.","location relocate relocation remote onsite where based kansas city move"],
+    ["card","Certifications","I hold AWS Certified Machine Learning – Specialty, AWS Solutions Architect – Associate and Microsoft Azure AI Engineer Associate, plus DeepLearning.AI and Stanford specializations in generative AI, LangChain, deep learning and machine learning.","certifications certified certificate aws azure microsoft deeplearning stanford"],
+    ["dep-edu","Education","I have an MS in Computer Science from the University of Central Missouri (December 2025) and a B.Tech in Electronics and Communication Engineering from JNTU Kakinada (2022, CGPA 9.0/10).","education degree masters ms bachelor btech university college gpa study"],
+    ["card","Experience","I have 4+ years of experience building production AI and ML systems, at DataRobot, Yellow.ai and Accenture.","years how long background total career experienced"],
+    ["stack","Languages","Python is my main language; I also use SQL, TypeScript, JavaScript, Java, C#, C++, Bash and PowerShell.","python languages programming sql typescript java c# c++ code coding"],
+    ["dep-dr","Forward deployed fit","Forward deployed work is what I already do: learn the customer's problem, connect AI to the systems they already use, and stay with it in production until it runs reliably.","forward deployed fde why fit customer field consulting solutions engineer embedded"]
+  ];
+  var STOP = "a an the is are was were be been of to in on for with and or by at as it its this that what which who whom how does do did has have had he his him harish i me my you your about can could would should any some tell give show experience know worked work".split(" ");
+  var SYN = { llm: "llm gpt claude", genai: "generative llm", gen: "generative", cloud: "aws azure gcp", customer: "stakeholder client", customers: "stakeholder client", money: "cost", cheaper: "cost", fast: "latency", speed: "latency", reliable: "uptime reliability", ml: "machine learning model", job: "roles", visa: "", salary: "", pay: "" };
+  function stem(w) { return w.replace(/(ing|ed|es|s)$/, function (m) { return w.length > 4 ? "" : m; }); }
+  function toks(s) {
+    return s.toLowerCase().replace(/[^a-z0-9#+.\-\s]/g, " ").split(/\s+/).filter(function (w) { return w && STOP.indexOf(w) < 0; }).map(stem);
+  }
+  var docs = KB.map(function (k) { return toks(k[1] + " " + k[2] + " " + k[3] + " " + k[3]); });
+  var N = docs.length, avg = docs.reduce(function (a, d) { return a + d.length; }, 0) / N, df = {};
+  docs.forEach(function (d) { var seen = {}; d.forEach(function (w) { if (!seen[w]) { seen[w] = 1; df[w] = (df[w] || 0) + 1; } }); });
+  function bm25(q) {
+    var qt = []; toks(q).forEach(function (w) { qt.push(w); if (SYN[w] !== undefined) toks(SYN[w]).forEach(function (x) { qt.push(x); }); });
+    var k1 = 1.4, b = .75;
+    return docs.map(function (d, i) {
+      var s = 0, tf = {};
+      d.forEach(function (w) { tf[w] = (tf[w] || 0) + 1; });
+      qt.forEach(function (w) {
+        if (!tf[w]) return;
+        var idf = Math.log(1 + (N - df[w] + .5) / (df[w] + .5));
+        s += idf * (tf[w] * (k1 + 1)) / (tf[w] + k1 * (1 - b + b * d.length / avg));
+      });
+      return { i: i, s: s };
+    }).sort(function (a, b) { return b.s - a.s; });
+  }
+  $("aTrace").innerHTML = '<span>retrieved <b>3</b> chunks</span><span>index <b>' + N + '</b> chunks</span><span>model <b>none: extractive</b></span>';
+
+  var SUGS = ["What has he built with agents?", "Biggest cost win?", "Has he worked directly with customers?", "How does he reduce hallucinations?", "Cloud experience?", "Is he open to relocation and C2C?", "Why Forward Deployed?", "Certifications?"];
+  var sugBox = $("sugs");
+  SUGS.forEach(function (s) {
+    var b = document.createElement("button"); b.type = "button"; b.textContent = s;
+    b.addEventListener("click", function () { $("askInput").value = s; run(s); });
+    sugBox.appendChild(b);
+  });
+
+  var aQ = $("aQ"), aA = $("aA"), aSrcs = $("aSrcs"), aTrace = $("aTrace"), job = 0;
+  function srcList(hits) {
+    aSrcs.innerHTML = "";
+    hits.forEach(function (h, n) {
+      var k = KB[h.i], b = document.createElement("button");
+      b.type = "button"; b.className = "src";
+      b.innerHTML = '<span class="n">[' + (n + 1) + ']</span><span class="s"><b>' + k[1] + '</b> · ' + k[2] + '</span><span class="sc">' + h.s.toFixed(2) + '</span>';
+      b.addEventListener("click", function () { go(k[0]); });
+      aSrcs.appendChild(b);
+    });
+  }
+  function run(q) {
+    q = (q || "").trim(); if (!q) return;
+    var my = ++job, t0 = performance.now();
+    var hits = bm25(q), top = hits[0].s;
+    var keep = hits.filter(function (h, n) { return n < 3 && h.s >= Math.max(1.2, top * .45); });
+    var ms = performance.now() - t0;
+    aQ.textContent = q;
+    if (!keep.length) {
+      aA.textContent = "My resume doesn't cover that, so I won't guess. Try asking about agents, RAG, cost, cloud, customers, or the roles I'm looking for.";
+      aTrace.innerHTML = '<span>retrieved <b>0</b> chunks above threshold</span><span>search <b>' + ms.toFixed(2) + ' ms</b></span><span>guardrail <b>no answer</b></span>';
+      aSrcs.innerHTML = ""; return;
+    }
+    aTrace.innerHTML = '<span>retrieved <b>' + keep.length + '</b> chunks</span><span>search <b>' + ms.toFixed(2) + ' ms</b></span><span>top BM25 <b>' + top.toFixed(2) + '</b></span><span>model <b>none: extractive</b></span>';
+    srcList(keep);
+    var parts = keep.map(function (h) { return KB[h.i][2]; });
+    if (reduce) { render(parts, keep, Infinity); return; }
+    var total = parts.join(" ").length, shown = 0;
+    (function tick() {
+      if (my !== job) return;
+      shown += 4;
+      render(parts, keep, shown);
+      if (shown < total + parts.length) requestAnimationFrame(tick); else render(parts, keep, Infinity);
+    })();
+  }
+  function render(parts, keep, limit) {
+    aA.innerHTML = ""; var used = 0, done = limit === Infinity;
+    for (var n = 0; n < parts.length; n++) {
+      var p = parts[n], take = Math.max(0, Math.min(p.length, limit - used));
+      if (take <= 0) break;
+      aA.appendChild(document.createTextNode((n ? " " : "") + p.slice(0, take)));
+      used += p.length + 1;
+      if (take === p.length) {
+        var c = document.createElement("button"); c.type = "button"; c.className = "cite"; c.textContent = n + 1;
+        (function (id) { c.addEventListener("click", function () { go(id); }); })(KB[keep[n].i][0]);
+        aA.appendChild(c);
+      }
+    }
+    if (!done) { var cr = document.createElement("span"); cr.className = "caret"; aA.appendChild(cr); }
+  }
+  $("askForm").addEventListener("submit", function (e) { e.preventDefault(); run($("askInput").value); });
+  aA.querySelectorAll(".cite").forEach(function (c) { c.addEventListener("click", function () { go(c.dataset.go); }); });
+  srcList(bm25("agents langgraph tools mcp crewai").slice(0, 3));
+
+  /* ---------- dependency manifest ---------- */
+  var E = [["Py", "Python", "lang", "My main language: agents, APIs, pipelines and ML training."], ["Sq", "SQL", "lang", "ETL with PostgreSQL and dbt feeding training and retrieval."], ["Ts", "TypeScript", "lang", "React front ends for the Yellow.ai assistant."], ["Jv", "Java", "lang", ""], ["C#", "C#", "lang", "Provider-agnostic GenAI services in .NET."], ["Cp", "C++", "lang", ""], ["Bs", "Bash", "lang", "Deployment automation and production troubleshooting on Linux."], ["Js", "JavaScript", "lang", ""], ["Ps", "PowerShell", "lang", ""], ["Cl", "Claude", "llm", "Powered the Yellow.ai support assistant; served on the DataRobot platform."], ["Gp", "GPT-4o", "llm", "One of three model families routed by the DataRobot platform."], ["Ll", "Llama 3", "llm", "Open models; fine-tuned Llama 2 with LoRA for a 32% accuracy gain."], ["Ms", "Mistral", "llm", "Served alongside GPT-4 and Claude with dynamic model selection."], ["Gm", "Gemini", "llm", ""], ["Rg", "RAG", "llm", "Hybrid search with BM25 re-ranking: +40% retrieval accuracy, hallucinations 8% to 2%."], ["Lr", "LoRA / PEFT", "llm", "Domain fine-tuning of Llama 2."], ["Gq", "GPTQ", "llm", "Quantized a fine-tuned model to 80% smaller."], ["Pe", "Prompting", "llm", "Prompt optimization was part of the 35% inference cost cut."], ["Gr", "Guardrails", "llm", "Output validation and guardrail testing for production assistants."], ["Rl", "RLHF", "llm", ""], ["Sc", "Semantic chunking", "llm", "Context optimization behind the 8% to 2% hallucination drop."], ["Hy", "Hybrid search", "llm", "Semantic plus keyword retrieval with BM25 re-ranking."], ["Ri", "Responsible AI", "llm", "Guardrails, validation and access controls for production AI."], ["Lg", "LangGraph", "agent", "Production agent orchestration at DataRobot: planning, routing, state and memory."], ["Lc", "LangChain", "agent", "Retrieval, tool calling and shared workflow components."], ["Li", "LlamaIndex", "agent", ""], ["Mc", "MCP", "agent", "Model Context Protocol integrations connecting agents to internal systems."], ["Sk", "Semantic Kernel", "agent", "Integrated AI components with internal tools and APIs."], ["Cr", "CrewAI", "agent", "Evaluated against LangGraph for multi-agent orchestration."], ["Ag", "AutoGen", "agent", "Evaluated for multi-agent workflows."], ["Tc", "Tool calling", "agent", "Agents that call APIs and tools to fetch data and take actions."], ["Ra", "ReAct agents", "agent", ""], ["Mg", "Multi-agent", "agent", "Multi-agent orchestration and routing."], ["Ae", "Agent evaluation", "agent", "Evaluating agent frameworks and agent behavior before adoption."], ["Pt", "PyTorch", "ml", "YOLOv3 detectors at 92% precision; model training and fine-tuning."], ["Tf", "TensorFlow", "ml", "LSTM traffic forecasting project."], ["Hf", "Hugging Face", "ml", "Transformers and PEFT for fine-tuning."], ["Sl", "scikit-learn", "ml", "Churn model at 0.91 AUC-ROC."], ["Op", "Optuna", "ml", "Tuned across 1,000+ hyperparameter configurations."], ["Ox", "ONNX", "ml", ""], ["Ke", "Keras", "ml", ""], ["Jx", "JAX", "ml", ""], ["Yo", "YOLO", "ml", "Object detection at 92% precision."], ["Cv", "Computer vision", "ml", "PyTorch and YOLOv3 detectors behind a FastAPI service."], ["Fe", "Feature engineering", "ml", "40+ domain features that lifted accuracy 25%."], ["Aw", "AWS", "cloud", "EC2, EKS, S3, Lambda and IAM for the production platform."], ["Br", "Bedrock", "cloud", "Managed model access on AWS."], ["Sm", "SageMaker", "cloud", "Model deployment and lifecycle on AWS."], ["Az", "Azure", "cloud", "Azure ML, AKS and Data Factory."], ["Ao", "Azure OpenAI", "cloud", "GPT-4 access with lifecycle managed in Azure ML."], ["Gc", "Google Cloud", "cloud", "BigQuery, GKE and Cloud Run."], ["Vx", "Vertex AI", "cloud", ""], ["Ec", "EC2", "cloud", ""], ["Ek", "EKS", "cloud", "Kubernetes on AWS for the production platform."], ["La", "Lambda", "cloud", ""], ["S3", "S3", "cloud", ""], ["Ia", "IAM", "cloud", ""], ["Ak", "AKS", "cloud", "Kubernetes on Azure."], ["Df", "Data Factory", "cloud", "Azure ETL for 5 TB+ weekly pipelines."], ["Bq", "BigQuery", "cloud", ""], ["Gk", "GKE", "cloud", ""], ["Cn", "Cloud Run", "cloud", ""], ["At", "Azure Table Storage", "cloud", ""], ["Dk", "Docker", "ops", "Every service ships as a container."], ["K8", "Kubernetes", "ops", "EKS and AKS clusters behind 99.5% uptime."], ["Tr", "Terraform", "ops", "Infrastructure as code for the platform."], ["Gh", "GitHub Actions", "ops", "CI with automated tests and quality gates."], ["Ar", "Argo CD", "ops", "GitOps deployments to Kubernetes."], ["Mf", "MLflow", "ops", "Model registry and versioning; cut manual release work 60%."], ["Pr", "Prometheus", "ops", "Metrics for latency, health and resources."], ["Gf", "Grafana", "ops", "Dashboards for inference latency, uptime and alerts."], ["Os", "OpenShift", "ops", "Containerized ML workloads at Accenture."], ["Kb", "Kubeflow", "ops", ""], ["Wb", "Weights & Biases", "ops", ""], ["He", "Helm", "ops", ""], ["Jk", "Jenkins", "ops", ""], ["Co", "GitHub Copilot", "ops", "AI-assisted test generation and debugging."], ["Pg", "PostgreSQL", "data", "Source data for training and retrieval."], ["Rd", "Redis", "data", "Caching layer behind the 35% cost cut; agent memory."], ["Pc", "Pinecone", "data", "Vector store for retrieval."], ["Qd", "Qdrant", "data", ""], ["Fs", "FAISS", "data", ""], ["Sp", "Spark", "data", "5 TB+ a week of feature pipelines."], ["Db", "Databricks", "data", "Where the Spark pipelines ran."], ["Af", "Airflow", "data", "Scheduled ETL feeding models."], ["Kf", "Kafka", "data", "Event-driven integrations at Yellow.ai."], ["Fa", "FastAPI", "data", "Inference services at 500+ requests per minute."], ["Re", "React", "data", "Front end for the GenAI assistant."], ["Nt", ".NET", "data", "ASP.NET Core services for GenAI reporting."], ["Wv", "Weaviate", "data", ""], ["Ch", "ChromaDB", "data", "Vector store behind the Claude assistant."], ["Es", "Elasticsearch", "data", "Keyword side of hybrid retrieval."], ["Mo", "MongoDB", "data", ""], ["Ge", "Great Expectations", "data", "Automated data-quality checks."], ["Fl", "Flask", "data", "Python backend and API services."], ["Ql", "GraphQL", "data", ""], ["Rs", "REST APIs", "data", "Integration layer for agents and 20+ third-party systems."], ["Mi", "Microservices", "data", "Containerized services on Kubernetes."], ["Sb", "Spring Boot", "data", ""], ["An", "ASP.NET Core", "data", "Reporting services for GenAI insights."], ["Sw", "Swagger / OpenAPI", "data", ""], ["Le", "LLM evaluation", "eval", "Benchmarked 15+ models on quality, latency and cost."], ["Qg", "Quality gates", "eval", "Automated gates before every model release."], ["Dd", "Drift detection", "eval", "Automated retraining kept data quality at 98%."], ["Pyt", "pytest", "eval", "Unit and integration tests in CI."], ["Pm", "Postman", "eval", "API validation across third-party integrations."], ["Se", "Selenium", "eval", "End-to-end regression tests."], ["Jm", "JMeter", "eval", "Load testing to 500+ requests per minute."], ["Lo", "Locust", "eval", "Performance testing for inference APIs."], ["Ab", "A/B testing", "eval", ""], ["Sd", "Solution design", "prac", "Architecture and trade-off reviews for the LLM platform."], ["Rq", "Requirements", "prac", "Turning stakeholder goals into workflow requirements."], ["Dm", "Stakeholder demos", "prac", "Demo each iteration and fold feedback in."], ["Ex", "Escalation", "prac", "Technical escalation point for production AI issues."], ["Rb", "Runbooks", "prac", "Design docs, API specs and operational runbooks."], ["Ee", "Estimation", "prac", "Story points and effort in sprint planning."], ["Sr", "Agile / Scrum", "prac", ""], ["Mt", "Mentoring", "prac", "Mentored 4 junior engineers."], ["Rv", "Code review", "prac", "Led code reviews on MLOps and AI engineering."]];
+  var FAM = { lang: "languages", llm: "llms-and-genai", agent: "agents", ml: "ml-and-deep-learning", cloud: "cloud", ops: "mlops-and-infra", data: "data-and-backend", eval: "eval-and-testing", prac: "practices" };
+  var NONPROD = ["C#", ".NET", "ASP.NET Core", "TensorFlow"];
+  var man = $("manifest"), groups = {};
+  Object.keys(FAM).forEach(function (f) {
+    var g = document.createElement("div"); g.className = "panel group";
+    g.innerHTML = '<h3>[' + FAM[f] + ']<span></span></h3><div class="deps"></div>';
+    groups[f] = g; man.appendChild(g);
+  });
+  E.forEach(function (e) {
+    var c = document.createElement("span");
+    var prod = e[3] && NONPROD.indexOf(e[1]) < 0;
+    c.className = "dep-chip" + (prod ? " prod" : "");
+    c.textContent = e[1]; c.dataset.k = (e[1] + " " + e[0] + " " + FAM[e[2]] + " " + e[3]).toLowerCase();
+    if (e[3]) c.title = e[3];
+    groups[e[2]].querySelector(".deps").appendChild(c);
+  });
+  function filt() {
+    var q = $("skillQ").value.trim().toLowerCase(), shown = 0;
+    Object.keys(groups).forEach(function (f) {
+      var g = groups[f], n = 0;
+      g.querySelectorAll(".dep-chip").forEach(function (c) {
+        var m = !q || c.dataset.k.indexOf(q) >= 0;
+        c.hidden = !m; c.classList.toggle("match", !!q && m); if (m) n++;
+      });
+      g.querySelector("h3 span").textContent = n;
+      g.classList.toggle("empty", n === 0); shown += n;
+    });
+    $("skillCount").textContent = shown + " / " + E.length + " skills";
+  }
+  $("skillQ").addEventListener("input", filt); filt();
+
+  /* ---------- spoken intro ---------- */
+  var synth = window.speechSynthesis, introBtn = $("introBtn"), il = introBtn.querySelector("span"), speaking = false, voice = null;
+  function pick() { var vs = synth.getVoices().filter(function (v) { return /^en/i.test(v.lang); }); voice = vs.filter(function (v) { return /(male|david|guy|daniel|aaron|alex|rishi|ravi|arthur|tom|ryan|andrew|christopher|eric)/i.test(v.name) && !/female/i.test(v.name); })[0] || vs[0] || null; }
+  var INTRO = "Hi, I'm Harish Yeluri, an AI and machine learning engineer based in Overland Park, Kansas, with over four years of experience building production AI. " +
+    "At DataRobot, I run an LLM platform serving more than ten thousand inferences a day at ninety-nine point five percent uptime. I built LangGraph agents and a RAG pipeline that improved retrieval accuracy by forty percent, and I cut inference costs by thirty-five percent. " +
+    "At Yellow dot A I, I built a Claude-powered assistant and reduced hallucinations from eight percent to two. At Accenture, I built machine learning pipelines for healthcare and banking clients. " +
+    "I'm looking for AI and machine learning engineer, generative AI engineer, and forward deployed engineer roles, full-time, W2, or C2C, and I'm open to relocating anywhere in the US. Thanks for stopping by.";
+  function reset() { speaking = false; il.textContent = "Hear my intro"; }
+  if (synth && typeof SpeechSynthesisUtterance !== "undefined") {
+    pick(); try { synth.addEventListener("voiceschanged", pick); } catch (e) {}
+    introBtn.hidden = false;
+    introBtn.addEventListener("click", function () {
+      if (speaking) { synth.cancel(); reset(); return; }
+      try { synth.cancel(); var u = new SpeechSynthesisUtterance(INTRO); if (voice) u.voice = voice; u.pitch = .95; u.onend = u.onerror = reset; synth.speak(u); speaking = true; il.textContent = "Stop"; } catch (e) { reset(); }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
