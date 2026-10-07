@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Harish Yeluri · AI/ML, GenAI & Forward Deployed Engineer</title>
+  <meta name="description" content="Harish Yeluri: AI/ML, Generative AI and Forward Deployed Engineer. Production LLM platforms, LangGraph agents and RAG systems. 10K+ daily inferences, 99.5% uptime, 35% lower inference cost.">
+  <meta property="og:title" content="Harish Yeluri · AI/ML Engineer">
+  <meta property="og:description" content="Ask my resume anything. Production AI with real metrics.">
+  <meta property="og:image" content="assets/harish-yeluri.jpg">
+  <meta name="theme-color" content="#EEF0F3">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="crumb" href="#top"><span class="dot live" aria-hidden="true"></span>harish-yeluri <span class="hide-sm">/ prod</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#ask" data-sec="ask">Ask</a>
+      <a href="#summary" data-sec="summary">Summary</a>
+      <a href="#metrics" data-sec="metrics">Metrics</a>
+      <a href="#deployments" data-sec="deployments">Experience</a>
+      <a href="#evals" data-sec="evals">Projects</a>
+      <a href="#stack" data-sec="stack">Skills</a>
+      <a href="#card" data-sec="card">Profile</a>
+      <a href="#hire" data-sec="hire">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero" id="ask">
+      <div>
+        <span class="status"><span class="dot live" aria-hidden="true"></span><b>Available</b><span>Full-time · W2 · C2C · relocating anywhere in the US</span></span>
+        <h1>Harish Yeluri</h1>
+        <div class="roles" aria-label="Target roles">
+          <span class="chip acc">AI/ML Engineer</span><span class="chip acc">GenAI Engineer</span><span class="chip acc">Forward Deployed Engineer</span>
+        </div>
+        <p class="lede">I build <b>production AI that people actually use</b>: LangGraph agents, RAG that stops hallucinating, and LLM platforms that stay fast and cheap. 4+ years at DataRobot, Yellow.ai and Accenture.</p>
+        <div class="hero-meta">
+          <div><b>10K+</b><span>daily inferences</span></div>
+          <div><b>99.5%</b><span>uptime</span></div>
+          <div><b>−35%</b><span>inference cost</span></div>
+        </div>
+        <div class="btns">
+          <a class="btn pri" href="#hire">Hire me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn" href="https://www.linkedin.com/in/harish8800/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <button class="btn" type="button" id="introBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg><span>Hear my intro</span></button>
+        </div>
+      </div>
+
+      <div class="panel ask" aria-label="Ask about my experience">
+        <div class="ask-head">
+          <span class="t"><span class="dot" aria-hidden="true"></span>ask-harish</span>
+          <span class="label">retrieval over my resume · BM25 · runs in your browser</span>
+        </div>
+        <form class="ask-form" id="askForm">
+          <label for="askInput" class="label" style="position:absolute;left:-9999px">Ask a question</label>
+          <input id="askInput" type="text" autocomplete="off" placeholder="Ask anything about my experience…">
+          <button type="submit">Ask</button>
+        </form>
+        <div class="sugs" id="sugs"></div>
+        <div class="answer" id="answer" aria-live="polite">
+          <p class="q" id="aQ">What has Harish built with agents?</p>
+          <p class="a" id="aA">At DataRobot I built production agentic workflows with LangGraph and LangChain: agents that plan multi-step tasks, call tools and APIs, route between models, and keep state and memory with LangGraph state, Redis and vector databases.<button class="cite" type="button" data-go="dep-dr">1</button> I connected those agents to internal systems through REST APIs, Model Context Protocol (MCP) and Semantic Kernel, and built shared components so new workflows start from one architecture.<button class="cite" type="button" data-go="dep-dr">2</button> I also evaluated LangGraph, LangChain, CrewAI and AutoGen and led the adoption of LangGraph for production orchestration.<button class="cite" type="button" data-go="dep-dr">3</button></p>
+          <div class="trace" id="aTrace"><span>retrieved <b>3</b> chunks</span><span>index <b>48</b> chunks</span><span>model <b>none: extractive</b></span></div>
+          <div class="srcs" id="aSrcs"></div>
+        </div>
+        <p class="note">No LLM here, so it can't invent anything: every answer is quoted from my resume, with its source. If the resume doesn't cover a question, it says so.</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="sec" id="summary" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>00</code>Professional summary</h2>
+        <p>The short version, for anyone reading in a hurry.</p>
+      </div>
+      <article class="panel readme">
+        <div class="readme-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>README.md</div>
+        <div class="readme-body">
+          <div>
+            <h3>AI/ML engineer who ships generative AI to production, and stays with it.</h3>
+            <p>I'm an AI/ML Engineer with <b>4+ years of experience</b> designing, building and running production AI: <b>LLM applications, RAG pipelines, multi-agent workflows and the ML infrastructure</b> underneath them. I work across the full lifecycle, from model selection, fine-tuning and retrieval tuning to deployment, monitoring and cost control.</p>
+            <p>At <b>DataRobot</b> I own an LLM platform serving <b>10,000+ inferences a day</b> across GPT-4, Claude and Mistral at <b>99.5% uptime</b>, where I built LangGraph agents, raised retrieval accuracy <b>40%</b> and cut inference cost <b>35%</b>. Before that I built a Claude-powered assistant at <b>Yellow.ai</b> that brought hallucinations down from <b>8% to 2%</b>, and large-scale ML pipelines for healthcare and banking clients at <b>Accenture</b>.</p>
+            <p>I do my best work close to the people using the system: turning a vague business problem into requirements, integrating AI with the tools they already run, and owning it in production. I'm looking for <b>AI/ML Engineer, Generative AI Engineer and Forward Deployed Engineer</b> roles (full-time, W2 or C2C) and will relocate anywhere in the US.</p>
+          </div>
+          <ul class="hl-list" aria-label="Highlights">
+            <li><span><b>Agents:</b> LangGraph, LangChain, MCP, tool calling, multi-agent orchestration</span></li>
+            <li><span><b>RAG:</b> hybrid search, BM25 re-ranking, semantic chunking, guardrails</span></li>
+            <li><span><b>LLMs:</b> Claude, GPT-4o, Llama, Mistral; LoRA fine-tuning, GPTQ quantization</span></li>
+            <li><span><b>MLOps:</b> Docker, Kubernetes, Terraform, MLflow, Argo CD, Grafana</span></li>
+            <li><span><b>Cloud:</b> AWS (Bedrock, SageMaker, EKS), Azure OpenAI, Google Cloud</span></li>
+            <li><span><b>Customer-facing:</b> requirements, demos, 20+ API integrations, production escalation</span></li>
+            <li><span><b>Certified:</b> AWS ML Specialty, AWS Solutions Architect, Azure AI Engineer</span></li>
+            <li><span><b>Education:</b> MS Computer Science, University of Central Missouri</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="metrics">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>01</code>Production metrics</h2>
+        <p>Numbers from systems I built or owned. Each tile names where it came from.</p>
+      </div>
+      <div class="kpis">
+        <div class="panel kpi"><div class="top-row"><span class="label">Daily inferences</span><span class="delta">live</span></div><div class="val">10K<small>+</small></div><p>Across GPT-4, Claude and Mistral on one platform</p><span class="src-tag">DataRobot · LLM platform</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Uptime</span><span class="delta">SLO met</span></div><div class="val">99.5<small>%</small></div><div class="gauge" aria-hidden="true"><i style="width:99.5%"></i></div><span class="src-tag">DataRobot · Kubernetes</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Inference cost</span><span class="delta">−35%</span></div><div class="mini" aria-hidden="true"><div>before<i style="width:100%"></i></div><div>after<i class="after" style="width:65%"></i></div></div><p>Caching, model routing, batching, prompts</p><span class="src-tag">DataRobot</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Retrieval accuracy</span><span class="delta">+40%</span></div><div class="mini" aria-hidden="true"><div>before<i style="width:71%"></i></div><div>after<i class="after" style="width:100%"></i></div></div><p>Hybrid search with BM25 re-ranking</p><span class="src-tag">DataRobot · RAG</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Hallucination rate</span><span class="delta">8% → 2%</span></div><div class="mini" aria-hidden="true"><div>before<i style="width:100%"></i></div><div>after<i class="after" style="width:25%"></i></div></div><p>Answer relevance up 35%</p><span class="src-tag">Yellow.ai · enterprise RAG</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Latency</span><span class="delta">p95</span></div><div class="val">&lt;500<small>ms</small></div><p>1,000+ daily queries; 500+ req/min inference API</p><span class="src-tag">Yellow.ai</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Models benchmarked</span><span class="delta">gated</span></div><div class="val">15<small>+</small></div><p>Quality, latency and cost before each release</p><span class="src-tag">DataRobot · evals</span></div>
+        <div class="panel kpi"><div class="top-row"><span class="label">Data processed</span><span class="delta">weekly</span></div><div class="val">5<small>TB+</small></div><p>Spark on Databricks; 98% data quality</p><span class="src-tag">Accenture</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="deployments">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>02</code>Deployment log</h2>
+        <p>My career, newest release first. Green lines are what each role shipped.</p>
+      </div>
+      <div class="deploys">
+        <article class="panel dep" id="dep-dr">
+          <div class="dep-head">
+            <span class="ver">v3</span>
+            <div><h3>DataRobot <span>· Machine Learning Engineer</span></h3><p class="meta">Nov 2024 – present · remote · agentic AI, LLM platform, MLOps</p></div>
+            <span class="state run"><span class="dot live" aria-hidden="true"></span>running</span>
+          </div>
+          <ul class="diff">
+            <li class="add"><span>Own a production ML/LLM platform serving <b>10,000+ daily inferences</b> across GPT-4, Claude and Mistral on AWS (EKS, SageMaker, Bedrock) and Azure OpenAI, from design to rollback.</span></li>
+            <li class="add"><span>Built <b>LangGraph and LangChain agents</b> that plan, call tools, route between models and keep state and memory.</span></li>
+            <li class="add"><span>Integrated agents with internal systems through REST APIs, <b>MCP</b> and Semantic Kernel; built shared components for new workflows.</span></li>
+            <li class="add"><span>Hybrid semantic-keyword RAG with BM25 re-ranking: <b>+40% retrieval accuracy</b>, fewer hallucinations.</span></li>
+            <li class="add"><span>Cut <b>inference cost 35%</b> with Redis caching, dynamic model selection, batching and prompt optimization.</span></li>
+            <li class="add"><span>Docker, Kubernetes, Terraform, GitHub Actions, Argo CD, Grafana and Prometheus: <b>99.5% uptime</b>; escalation point for production AI issues.</span></li>
+            <li class="add"><span>Evaluation framework with quality gates across <b>15+ models</b>; led LangGraph adoption; mentor 4 engineers.</span></li>
+            <li class="ctx"><span>Partner with product and business stakeholders on requirements, success criteria and iteration demos; write design docs and runbooks.</span></li>
+          </ul>
+        </article>
+        <article class="panel dep" id="dep-ya">
+          <div class="dep-head">
+            <span class="ver">v2</span>
+            <div><h3>Yellow.ai <span>· Machine Learning Engineer</span></h3><p class="meta">Apr 2023 – Jan 2024 · India · generative AI, RAG, full-stack</p></div>
+            <span class="state"><span class="dot done" aria-hidden="true"></span>completed</span>
+          </div>
+          <ul class="diff">
+            <li class="add"><span>Full-stack Claude assistant (FastAPI, React, TypeScript): <b>1,000+ daily queries under 500 ms</b>, support efficiency <b>+45%</b>.</span></li>
+            <li class="add"><span>Custom adapters for <b>20+ third-party APIs</b> with mismatched formats, auth and rate limits; Kafka event-driven integrations.</span></li>
+            <li class="add"><span>Enterprise RAG with semantic chunking and guardrails: <b>hallucinations 8% → 2%</b>, relevance <b>+35%</b>.</span></li>
+            <li class="add"><span>Llama 2 + LoRA: <b>+32% accuracy</b>; GPTQ quantization: <b>80% smaller</b>.</span></li>
+            <li class="add"><span>PyTorch / YOLOv3 at <b>92% precision</b> behind FastAPI at 500+ req/min; MLflow + CI/CD cut release work <b>60%</b>.</span></li>
+          </ul>
+        </article>
+        <article class="panel dep" id="dep-ac">
+          <div class="dep-head">
+            <span class="ver">v1</span>
+            <div><h3>Accenture <span>· Machine Learning Engineer</span></h3><p class="meta">Nov 2021 – Mar 2023 · India · ML pipelines, healthcare &amp; banking</p></div>
+            <span class="state"><span class="dot done" aria-hidden="true"></span>completed</span>
+          </div>
+          <ul class="diff">
+            <li class="add"><span>Churn model at <b>88% accuracy, 0.91 AUC-ROC</b>; Optuna across 1,000+ configurations.</span></li>
+            <li class="add"><span>Spark on Databricks over <b>5 TB+ a week</b>; 40+ features, accuracy <b>+25%</b>, training time <b>−30%</b>.</span></li>
+            <li class="add"><span>Drift detection with automated retraining at <b>98% data quality</b>; de-identified healthcare data under PHI controls.</span></li>
+            <li class="ctx"><span>Containerized ML on Red Hat OpenShift across Azure and Google Cloud; explained model drivers to business stakeholders.</span></li>
+          </ul>
+        </article>
+        <article class="panel dep" id="dep-edu">
+          <div class="dep-head">
+            <span class="ver">v0</span>
+            <div><h3>Education <span>· base model</span></h3><p class="meta">MS Computer Science, University of Central Missouri, Dec 2025 · B.Tech ECE, JNTU Kakinada, 2022, CGPA 9.0/10</p></div>
+            <span class="state"><span class="dot done" aria-hidden="true"></span>trained</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="evals">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>03</code>Eval results</h2>
+        <p>Projects scored the way I'd score a model: the metric, where it started, where it ended.</p>
+      </div>
+      <div class="panel tbl-wrap">
+        <table>
+          <thead><tr><th>System</th><th>Metric</th><th>Baseline</th><th>Result</th><th>Δ</th></tr></thead>
+          <tbody>
+            <tr><td><div class="sys">LangGraph agent workflows</div><div class="how">Agents that plan, call tools and APIs, route models and keep state; wired to internal systems via MCP.</div><div class="stack">LangGraph · LangChain · MCP · Redis</div></td><td>Daily inferences served</td><td class="num base">–</td><td class="num">10,000+</td><td><span class="pill">prod</span></td></tr>
+            <tr><td><div class="sys">Hybrid-search RAG</div><div class="how">Semantic + keyword retrieval with BM25 re-ranking for enterprise document search.</div><div class="stack">LangChain · Elasticsearch · Pinecone</div></td><td>Retrieval accuracy</td><td class="num base">1.00×</td><td class="num">1.40×</td><td><span class="pill">+40%</span></td></tr>
+            <tr><td><div class="sys">Multi-model LLM platform</div><div class="how">GPT-4, Claude and Mistral behind caching, batching and dynamic model selection.</div><div class="stack">Kubernetes · Bedrock · Redis · Argo CD</div></td><td>Inference cost</td><td class="num base">100</td><td class="num">65</td><td><span class="pill">−35%</span></td></tr>
+            <tr><td><div class="sys">Enterprise RAG (Yellow.ai)</div><div class="how">Semantic chunking, context optimization, query refinement and guardrails.</div><div class="stack">Claude API · vector DB · guardrails</div></td><td>Hallucination rate</td><td class="num base">8%</td><td class="num">2%</td><td><span class="pill">−75%</span></td></tr>
+            <tr><td><div class="sys">Claude support assistant</div><div class="how">React + FastAPI app with 20+ custom API adapters.</div><div class="stack">Claude API · React · FastAPI · Kafka</div></td><td>Support efficiency</td><td class="num base">1.00×</td><td class="num">1.45×</td><td><span class="pill">+45%</span></td></tr>
+            <tr><td><div class="sys">Domain-tuned Llama 2</div><div class="how">LoRA fine-tuning, then GPTQ quantization for constrained hardware.</div><div class="stack">PEFT · GPTQ · Hugging Face</div></td><td>Task accuracy / size</td><td class="num base">1.00× / 100%</td><td class="num">1.32× / 20%</td><td><span class="pill">+32% · −80%</span></td></tr>
+            <tr><td><div class="sys">Object detection service</div><div class="how">YOLOv3 models served through FastAPI.</div><div class="stack">PyTorch · YOLOv3 · FastAPI</div></td><td>Precision · throughput</td><td class="num base">–</td><td class="num">92% · 500+ rpm</td><td><span class="pill">p95 &lt;500ms</span></td></tr>
+            <tr><td><div class="sys">Model release pipeline</div><div class="how">MLflow registry with CI/CD and automated tests.</div><div class="stack">MLflow · GitHub Actions</div></td><td>Manual release work</td><td class="num base">100</td><td class="num">40</td><td><span class="pill">−60%</span></td></tr>
+            <tr><td><div class="sys">Churn prediction</div><div class="how">Spark features and Optuna tuning over 1,000+ configurations.</div><div class="stack">Spark · Databricks · scikit-learn · Optuna</div></td><td>AUC-ROC · accuracy</td><td class="num base">–</td><td class="num">0.91 · 88%</td><td><span class="pill">+25% acc</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="stack">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>04</code>Dependencies</h2>
+        <p>Every skill across my resumes. Ones marked <code style="color:var(--accent)">prod</code> have run in production with a result attached.</p>
+      </div>
+      <div class="stack-tools">
+        <label for="skillQ" class="label" style="position:absolute;left:-9999px">Filter skills</label>
+        <input id="skillQ" type="search" placeholder="$ grep skills   (try: langgraph, aws, eval)" autocomplete="off">
+        <span class="count" id="skillCount"></span>
+      </div>
+      <div class="manifest" id="manifest"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="card">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><code>05</code>Model card</h2>
+        <p>The standard way to document a model, applied to me.</p>
+      </div>
+      <div class="card-grid">
+        <div class="panel idc">
+          <img src="assets/harish-yeluri.jpg" alt="Portrait of Harish Yeluri" width="260" height="260">
+          <div><h3>Harish Yeluri</h3></div>
+          <p class="sub">AI/ML Engineer · Overland Park, Kansas</p>
+          <span class="status" style="font-size:11px"><span class="dot live" aria-hidden="true"></span><b>Available</b><span>W2 · C2C · full-time</span></span>
+        </div>
+        <div class="panel mc">
+          <dl>
+            <dt>intended_use</dt><dd><div class="chips"><span class="chip acc">AI/ML Engineer</span><span class="chip acc">Generative AI Engineer</span><span class="chip acc">Forward Deployed Engineer</span></div></dd>
+            <dt>strengths</dt><dd>Agents and RAG in production · LLM platform reliability and cost · working directly with customers and stakeholders</dd>
+            <dt>training_data</dt><dd>4+ years: DataRobot (2024–now), Yellow.ai (2023–24), Accenture (2021–23) · healthcare, banking, enterprise support</dd>
+            <dt>evaluation</dt><dd>10K+ inferences/day · 99.5% uptime · −35% cost · +40% retrieval · 8% → 2% hallucinations</dd>
+            <dt>serving_terms</dt><dd>Full-time · W2 · C2C</dd>
+            <dt>deployment_region</dt><dd>Based in Overland Park, KS · open to relocate anywhere in the US</dd>
+            <dt>certifications</dt><dd><ul>
+              <li>AWS Certified Machine Learning – Specialty</li>
+              <li>AWS Certified Solutions Architect – Associate</li>
+              <li>Microsoft Certified: Azure AI Engineer Associate</li>
+              <li>Generative AI with Large Language Models · DeepLearning.AI</li>
+              <li>LangChain for Large Language Models · DeepLearning.AI</li>
+              <li>Deep Learning Specialization · DeepLearning.AI</li>
+              <li>Machine Learning Specialization · Stanford University</li>
+            </ul></dd>
+            <dt>education</dt><dd>MS Computer Science, University of Central Missouri (Dec 2025) · B.Tech ECE, JNTU Kakinada (2022, CGPA 9.0/10)</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="hire">
+    <div class="wrap">
+      <div class="hire">
+        <div class="panel hire-l">
+          <span class="label"><code>06</code> Contact</span>
+          <h2>Ready to deploy.</h2>
+          <p>Looking for AI/ML, Generative AI and Forward Deployed Engineer roles. Full-time, W2 or C2C, and I'll relocate anywhere in the US.</p>
+          <div class="contact-rows">
+            <div><span>Email</span><b id="email">harishyeluri8800@gmail.com</b><button class="cbtn" type="button" data-copy="email">Copy</button></div>
+            <div><span>Phone</span><b id="phone">+1 (913) 553-0359</b><button class="cbtn" type="button" data-copy="phone">Copy</button></div>
+            <div><span>LinkedIn</span><a href="https://www.linkedin.com/in/harish8800/" target="_blank" rel="noopener">in/harish8800 ↗</a></div>
+          </div>
+        </div>
+        <div class="panel req">
+          <div class="req-head"><span><span class="m">POST</span>/v1/hire/harish-yeluri</span><button class="cbtn" type="button" data-copy="reqBody">Copy</button></div>
+<pre id="reqBody"><span class="c"># the request I'm hoping for</span>
+{
+  <span class="k">"role"</span>: <span class="s">"AI/ML | GenAI | Forward Deployed Engineer"</span>,
+  <span class="k">"type"</span>: [<span class="s">"full-time"</span>, <span class="s">"W2"</span>, <span class="s">"C2C"</span>],
+  <span class="k">"location"</span>: <span class="s">"anywhere in the US"</span>,
+  <span class="k">"contact"</span>: {
+    <span class="k">"email"</span>: <span class="s">"harishyeluri8800@gmail.com"</span>,
+    <span class="k">"phone"</span>: <span class="s">"+1 (913) 553-0359"</span>,
+    <span class="k">"linkedin"</span>: <span class="s">"linkedin.com/in/harish8800"</span>
+  }
+}
+
+<span class="c"># 200 OK</span>
+{ <span class="k">"status"</span>: <span class="s">"available"</span>, <span class="k">"relocation"</span>: <span class="s">"yes"</span> }</pre>
+        </div>
+      </div>
+      <footer><span>harish-yeluri · prod · AI/ML · GenAI · Forward Deployed</span><span>uptime 99.5% and counting</span></footer>
+    </div>
+  </section>
+</main>
+
+<script src="js/skills.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
